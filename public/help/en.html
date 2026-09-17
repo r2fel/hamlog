@@ -1,0 +1,1042 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R2FEL HamLog — User manual</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="help.css">
+<!-- Mac or Windows: parts of this manual differ (installing, location,
+     keys, removing the app), and each reader gets theirs. -->
+<script>document.documentElement.classList.add(/Windows/.test(navigator.userAgent) ? 'is-win' : 'is-mac');</script>
+</head>
+<body>
+<div class="page">
+
+<header class="top">
+  <div class="brand"><span class="call">R2FEL</span><span class="name">HamLog</span></div>
+  <h1>User manual</h1>
+  <p class="lead">
+    A logbook for radio contacts (QSOs) that looks up every callsign as you
+    type it — name, country, town, locator, RDA — and shows how far away the
+    station is, the weather there and their local time. Everything below,
+    from the first launch to the last keyboard shortcut.
+  </p>
+  <a class="lang" href="ru.html">Русская версия</a>
+</header>
+
+<nav class="toc">
+  <div class="toc-title">Contents</div>
+  <ol>
+    <li><a href="#start">First steps</a></li>
+    <li><a href="#overview">The screen at a glance</a></li>
+    <li><a href="#logging">Logging a contact</a></li>
+    <li><a href="#station">Your station and 📍</a></li>
+    <li><a href="#dupes">Worked before</a></li>
+    <li><a href="#group">Pileups: several stations at once</a></li>
+    <li><a href="#contest">Contest mode</a></li>
+    <li><a href="#log">The logbook</a></li>
+    <li><a href="#settings">Settings</a></li>
+    <li><a href="#qsl">QSL confirmations: LoTW, eQSL, HAMLOG, e-mail</a></li>
+    <li><a href="#russian">Russian mode</a></li>
+    <li><a href="#keys">Keyboard shortcuts</a></li>
+    <li><a href="#backup">Backups and moving to another computer</a></li>
+    <li><a href="#uninstall">Removing the app</a></li>
+    <li><a href="#faq">If something doesn't work</a></li>
+  </ol>
+</nav>
+
+<!-- ======================================================================= -->
+<section id="start">
+<h2>1. First steps</h2>
+
+<h3>Installing</h3>
+<p>The program is called <strong>R2FEL HamLog</strong> — that is the name in its window and the one used in this manual; its icon, installer and folders on disk are <strong>R2FEL-LOG</strong>.</p>
+<ol class="only-mac">
+  <li>Open the <code>R2FEL-LOG-….dmg</code> file.</li>
+  <li>Drag <strong>R2FEL-LOG</strong> onto the <strong>Applications</strong> folder in the window that opens.</li>
+  <li>Start it from Launchpad or the Applications folder.</li>
+</ol>
+<ol class="only-win">
+  <li>
+    Run the installer: <code>R2FEL-LOG-Setup-….exe</code> on Windows 10 and 11
+    (64-bit); <code>R2FEL-LOG-Setup-…-Windows7-8.exe</code> on Windows 7, 8 and 8.1,
+    and on any 32-bit Windows, 10 included.
+  </li>
+  <li>Click through the installer — you can choose the folder, or just press <strong>Next</strong> and <strong>Install</strong>.</li>
+  <li>Start R2FEL-LOG from the desktop shortcut or the Start menu.</li>
+</ol>
+
+<div class="warn only-win">
+  <span class="tip-label">The first time only</span>
+  <p>
+    The installer isn't signed with a paid certificate, so Windows may show
+    <strong>“Windows protected your PC”</strong>. Click <strong>More info</strong>, then
+    <strong>Run anyway</strong>. Your antivirus may ask the same once.
+  </p>
+</div>
+
+<div class="warn only-mac">
+  <span class="tip-label">The first time only</span>
+  <p>
+    The app isn't signed with a paid Apple certificate, so on the first launch
+    macOS may say it can't check it for malicious software. Click
+    <strong>Done</strong>, open <strong>System Settings → Privacy &amp; Security</strong>,
+    scroll down to the message about R2FEL-LOG and click <strong>Open Anyway</strong>.
+    After that it opens like any other app.
+  </p>
+</div>
+
+<h3>The first launch</h3>
+<ol>
+  <li>
+    Settings open straight on the <a href="#logins"><strong>QRZ &amp; HamQTH logins</strong></a> page.
+    It's optional: with the logins, the name, town and locator fill in by
+    themselves as you log a contact; without them the logbook works fully, you
+    just type those details yourself. Fill in any of the books, or none, and
+    close the page with its ✕ — it's always there in settings ⚙, and it won't
+    open by itself again.
+  </li>
+  <li>
+    Fill in the top row — <span class="ui">MY CALLSIGN</span>,
+    <span class="ui">MY RDA</span> and <span class="ui">MY QTH LOCATOR</span>. The 📍 button
+    fills in the locator and RDA from where you are (see <a href="#station">section 4</a>).
+    They're remembered; you only change them when you operate from somewhere else.
+  </li>
+  <li>Pick the band and mode in the <span class="ui">MAIN STATION</span> line. They're remembered too.</li>
+</ol>
+<p>That's all — you're ready to log.</p>
+<p>
+  The window can be stretched by its edges and made full screen —
+  <span class="only-win">with the button in its title bar, or <kbd>F11</kbd></span><span class="only-mac">with
+  the green button in its corner, or <kbd>⌃</kbd><kbd>⌘</kbd><kbd>F</kbd></span>. On a narrow window
+  the form rearranges itself to fit. The size is remembered for next time.
+</p>
+
+<div class="tip">
+  <span class="tip-label">Good to know</span>
+  <p>
+    All times in the log are <strong>UTC</strong>, as radio logs are kept. Your
+    logbook lives on this computer, inside the app — nothing is sent anywhere
+    except the callsign being looked up.
+  </p>
+</div>
+</section>
+
+<!-- ======================================================================= -->
+<section id="overview">
+<h2>2. The screen at a glance</h2>
+
+<figure>
+  <img src="img/en/overview.webp" alt="The main window with its parts numbered" loading="lazy" width="1350" height="1181">
+</figure>
+<ol class="legend">
+  <li><span class="ui">CONTEST</span> — contest mode: serial numbers instead of group logging (<a href="#contest">section 7</a>).</li>
+  <li><strong>⚙ Settings</strong> — QRZ login, import and export, alphabet and language, this manual.</li>
+  <li><strong>Your station</strong> — your callsign, RDA district and locator, with the weather where you are.</li>
+  <li><strong>📍</strong> — finds your locator and RDA from your current location.</li>
+  <li><strong>Frequency, band, mode</strong> of the contact. The band follows the frequency by itself.</li>
+  <li><span class="ui">CALLSIGN</span> — the station you're working. Everything starts here.</li>
+  <li><strong>Who you're working</strong>: name, town, country, distance, weather, local time, and whether you've worked them before.</li>
+  <li><span class="ui">RST SENT / RCVD</span> — the reports: yours to them, theirs to you.</li>
+  <li><span class="ui">DATE / TIME (UTC)</span> — run by the clock; <span class="ui">NOW</span> puts them back on it.</li>
+  <li><span class="ui">LOG QSO</span> — saves the contact. <kbd>Enter</kbd> does the same.</li>
+  <li><span class="ui">▸ LOG</span> — opens the logbook, with the number of contacts in it.</li>
+</ol>
+</section>
+
+<!-- ======================================================================= -->
+<section id="logging">
+<h2>3. Logging a contact</h2>
+
+<p>The whole contact can be done without taking your hands off the keyboard:</p>
+
+<div class="anim" data-frames="anim/en/log-contact/">
+  <div class="anim-screen"><img width="1125" height="791" alt="Logging a contact, step by step"></div>
+  <div class="anim-bar">
+    <button type="button" class="anim-play" title="Play / pause">▶</button>
+    <div class="anim-progress"><div></div></div>
+    <span class="anim-title">One contact</span>
+  </div>
+  <ol class="anim-steps">
+    <li>Type the callsign. It's spelled out underneath as you type — ready to read on air.</li>
+    <li>A moment later: who it is, where, how far, their weather and local time.</li>
+    <li><kbd>Tab</kbd> — report sent (just type over the 59), <kbd>Tab</kbd> — report received.</li>
+    <li><kbd>Enter</kbd> — logged.</li>
+    <li>The form is clear for the next one; frequency, band and mode stay as they were.</li>
+  </ol>
+</div>
+
+<h3>The callsign</h3>
+<ul>
+  <li>
+    Letters become capitals by themselves, and <strong>the keyboard layout doesn't
+    matter</strong>: typed with the Russian layout on, <code>к2ауд</code> turns into
+    <code>R2FEL</code> — each key gives its Latin letter.
+  </li>
+  <li>
+    Under the field the callsign is <strong>spelled out phonetically</strong>
+    (Romeo Two Foxtrot…), in Russian for Russian, Belarusian and Kazakh stations
+    when <a href="#russian">Russian mode</a> is on. A suffix is read separately,
+    and the common ones as words: <code>R2FEL/P</code> → “… Lima / stroke portable”,
+    <code>R2FEL/QRP/P</code> → “… Lima / stroke QRP / stroke portable”. In Russian,
+    <code>/M</code> is also said as a word — «дробь машина».
+  </li>
+  <li>
+    The lookup starts by itself a moment after you stop typing (and again when
+    you leave the field). The line under the spelling says how it went:
+    <span class="ui">✓ found [qrz.ru]</span>, <span class="ui">not found</span>, or what went wrong.
+  </li>
+  <li><strong>✕</strong> at the right end of the field clears the callsign and everything found for it. <kbd>Esc</kbd> does the same.</li>
+  <li>
+    <span class="ui">/P</span> adds <code>/P</code> (portable) to the callsign, or takes it off
+    again. Rest the pointer on the button and the other suffixes drop down:
+    <code>/QRP</code> (low power), <code>/M</code> (mobile), <code>/MM</code> (maritime mobile),
+    <code>/AM</code> (aeronautical mobile). The one you pick
+    stays on the button, so the next station gets it at a single press.
+  </li>
+</ul>
+
+<h3>Who you're working</h3>
+<figure>
+  <img src="img/en/contact.webp" alt="A contact being entered, with the parts numbered" loading="lazy" width="1350" height="614">
+</figure>
+<ol class="legend">
+  <li><strong>Frequency</strong> in kHz. Type it any way — <code>7085</code>, <code>7.085</code>, <code>7,085</code> — it becomes <code>7.085.0</code> when you leave the field. <strong>✕</strong> clears it.</li>
+  <li><strong>Band.</strong> Set by itself from the frequency; with no frequency, pick it here.</li>
+  <li><strong>Mode</strong>: SSB, CW, AM, FM, DMR, D-STAR, C4FM, DIGITAL.</li>
+  <li><strong>✕</strong> — clear the callsign (or <kbd>Esc</kbd>).</li>
+  <li><span class="ui">/P</span> — add or remove /P; hold the pointer on it for the other suffixes.</li>
+  <li><strong>👥</strong> — starts a group: another station from the same pileup (<a href="#group">section 6</a>).</li>
+  <li>The callsign <strong>spelled out</strong>, ready to read on air.</li>
+  <li><strong>Lookup result</strong> and where it came from — QRZ.RU first, QRZ.com if QRZ.RU doesn't know the station.</li>
+  <li><span class="ui">NEW CONTACT</span> — or <span class="ui">WORKED BEFORE</span> if they're already in your log (<a href="#dupes">section 5</a>). An amber badge may light up beside it — something you haven't had before:
+    <ul>
+      <li><span class="ui">★ NEW COUNTRY</span> — your log hasn't a single contact with that country;</li>
+      <li><span class="ui">★ NEW RDA · SP-03</span> — a Russian district you haven't had (the country can be a familiar one; for a log that is mostly Russia this is the one that comes up);</li>
+      <li><span class="ui">★ NEW BAND · 40m</span> — you have the country, but never on this band.</li>
+    </ul>
+    The rarest of them that applies is the one shown, in that order. Counted from your own log — country, district and band as they were written down on earlier contacts. A log built from several sources, with one country spelled two ways ("Germany" and "Германия"), can get it wrong. Change the band and it is worked out again at once.</li>
+  <li><strong>Name</strong> of the operator, and under it town and country.</li>
+  <li><strong>Distance</strong> from you to them. A “≈” in front means their locator is approximate.</li>
+  <li><strong>Weather</strong> at their locator: sky and temperature.</li>
+  <li><strong>Their local time</strong> — the clock face shows it too.</li>
+</ol>
+<p>
+  Distance and weather need two locators: theirs (from the lookup) and yours
+  (<span class="ui">MY QTH LOCATOR</span>). If yours is missing, the card says so.
+</p>
+
+<h3>A station nobody has on file</h3>
+<figure>
+  <img src="img/en/not-found.webp" alt="A callsign that wasn't found, with fields to type the details" loading="lazy" width="1338" height="573">
+</figure>
+<ol class="legend">
+  <li><span class="ui">not found — type their details below</span>: neither QRZ.RU nor QRZ.com knows this callsign.</li>
+  <li><span class="ui">OPERATOR</span> — the name, as they give it on air.</li>
+  <li><span class="ui">QTH</span> — town or location. (In <a href="#russian">Russian mode</a> these two are typed in Russian, for any country.)</li>
+  <li><span class="ui">RDA</span> — their district, if they say it. The hyphen is added for you: <code>MO07</code> → <code>MO-07</code>.</li>
+</ol>
+<p><kbd>Tab</kbd> goes callsign → operator → QTH → reports, so these fit into the same rhythm.</p>
+
+<h3>Band and mode</h3>
+<figure>
+  <img src="img/en/bands.webp" alt="The band menu open" loading="lazy" width="1248" height="485">
+  <figcaption>Click the band to pick it from the list; the mode works the same way.</figcaption>
+</figure>
+<ul>
+  <li>Bands: 160m, 80m, 40m, 30m, 20m, 17m, 15m, 12m, 10m, 2m, 70cm.
+    Modes: SSB, CW, AM, FM, DMR, D-STAR, C4FM, DIGITAL.</li>
+  <li>The digital modes go into an ADIF file the way the standard has them:
+    <code>MODE=DIGITALVOICE</code> with <code>SUBMODE=DMR</code> (or <code>DSTAR</code>,
+    <code>C4FM</code>), which LoTW, eQSL and other logs understand; plain <code>DIGITAL</code>
+    goes out as <code>DIGITALVOICE</code> with no submode. In your own log the mode stays
+    written the way you picked it.</li>
+  <li>A frequency inside a band always wins: <code>14195</code> means 20m whatever was picked, and the frequency turns green. A frequency outside every band turns red and leaves the band alone.</li>
+  <li>Changing the mode sets the usual report — 59 for voice, 599 for CW — but only if the report fields still hold the standard value. A report you typed yourself is never touched.</li>
+  <li>Band, mode and frequency stay from one contact to the next and are remembered when you quit.</li>
+</ul>
+
+<h3>Reports</h3>
+<p>
+  <span class="ui">RST SENT</span> is the report you give, <span class="ui">RST RCVD</span>
+  the one you get. <kbd>Tab</kbd> from the callsign lands in them with the
+  value selected, so you just type the new one over it. <kbd>Tab</kbd> stops at
+  the last report — it never wanders off into the rest of the window.
+</p>
+<p>
+  Reports take digits only, and as many as the mode's report has: three
+  (<code>599</code>) for CW, two (<code>59</code>) for every other mode. Letters and
+  anything else simply don't go in; switching from CW to voice turns
+  <code>579</code> into <code>57</code>.
+</p>
+
+<h3>Date and time</h3>
+<figure>
+  <img src="img/en/datetime.webp" alt="Date and time set by hand" loading="lazy" width="1350" height="231">
+</figure>
+<ol class="legend">
+  <li><span class="ui">DATE (UTC)</span>.</li>
+  <li><span class="ui">TIME (UTC)</span>. Both keep up with the clock by themselves.</li>
+  <li>
+    As soon as you type into either one, the clock stops for this contact and
+    says so: <span class="ui">SET BY HAND — CLOCK STOPPED</span>. Use it to log a
+    contact after the fact.
+  </li>
+  <li><span class="ui">NOW</span> (it lights up while the clock is stopped) puts both back to the current time.</li>
+</ol>
+<p>
+  Only digits go in — nothing else can be typed into these fields. In English
+  mode the date and time look the way your computer shows them for your
+  region (for example 09/14/2026 and 05:25 PM). In <a href="#russian">Russian
+  mode</a> they're always <code>14.09.2026</code> and <code>17:25</code>: type just the
+  digits and the dots and colon appear by themselves — <code>14092026</code> becomes
+  <code>14.09.2026</code>, <code>1825</code> becomes <code>18:25</code>. A digit that
+  can't be there (a 13th month, a 25th hour) isn't taken; a first digit that can
+  only mean one thing is completed for you (<code>925</code> → <code>09:25</code>),
+  and a two-digit year becomes a full one when you leave the field
+  (<code>01.09.26</code> → <code>01.09.2026</code>).
+</p>
+
+<h3>Saving</h3>
+<p>
+  <kbd>Enter</kbd> in the callsign or in either report — or the
+  <span class="ui">LOG QSO</span> button — saves the contact. You see
+  <span class="ui">✓ QSO LOGGED</span>, and the form clears for the next one:
+  callsign, name and the rest go; frequency, band, mode and your station stay,
+  and the clock runs again.
+</p>
+<p>
+  Three things have to be there, or nothing is logged: their callsign,
+  <strong>your own callsign</strong> in the station bar, and the
+  <strong>band</strong>. When one is missing the contact is not saved — the app
+  goes to that field, outlines it in red and says what it is waiting for under
+  the button, for instance <span class="ui">✗ Pick the band</span> (and opens
+  the band list there and then). It used to save such a contact quietly: with
+  no callsign of yours (a grey <strong>?</strong> against it in the log) or on
+  no band at all — and a contact like that can go to neither LoTW, eQSL nor
+  HAMLOG.
+</p>
+</section>
+
+<!-- ======================================================================= -->
+<section id="station">
+<h2>4. Your station and 📍</h2>
+
+<figure>
+  <img src="img/en/station.webp" alt="The top of the window: your station" loading="lazy" width="1350" height="414">
+</figure>
+<ol class="legend">
+  <li><span class="ui">MY CALLSIGN</span> — your callsign, as it goes into every contact.</li>
+  <li><span class="ui">/P</span> — working portable: adds or removes <code>/P</code> on your
+    callsign. Rest the pointer on the button to pick <code>/QRP</code>, <code>/M</code>,
+    <code>/MM</code> or <code>/AM</code> instead.</li>
+  <li><span class="ui">MY RDA</span> — your RDA district, e.g. <code>KA-05</code>. Type <code>KA05</code>, the hyphen appears by itself.</li>
+  <li><span class="ui">MY QTH LOCATOR</span> — your Maidenhead locator, e.g. <code>KO04FR</code>. It's always in capitals, however you type it.</li>
+  <li><strong>📍</strong> — fill in the locator and RDA from where you are now.</li>
+  <li>The temperature and sky where you are.</li>
+  <li>
+    Your callsign, RDA and locator <strong>spelled out</strong> — what you read to
+    the other station. These lines appear once there's a callsign in
+    <span class="ui">CALLSIGN</span>, and use the alphabet that suits that station.
+  </li>
+  <li>
+    The line under the title says whether lookup is on. When no QRZ login is set
+    it says so, and a click on it opens settings.
+  </li>
+</ol>
+
+<p>
+  <strong>Once a field in this bar is filled it goes grey and stops taking the keyboard.</strong> Your
+  callsign, district and locator are set once, but the bar sits right under your hand — a stray keystroke
+  used to change the callsign every contact is logged under. To change a field, press <strong>✎</strong>
+  at its end: it opens with the text selected. Leave the field and it closes again.
+</p>
+
+<h3>📍 — where am I?</h3>
+<ol>
+  <li class="only-mac">Press 📍. The first time, macOS asks: <em>“R2FEL-LOG would like to use your location”</em> — click <strong>Allow</strong>.</li>
+  <li class="only-win">Press 📍. Windows answers from its own Location setting (see below if it's off).</li>
+  <li>The locator is worked out right away; the RDA district is looked up on the RDA map service a second later.</li>
+  <li>If the district can't be found automatically, the map (r1cf.ru/rdaloc) opens with your coordinates already copied — paste them there and type the code into <span class="ui">MY RDA</span>.</li>
+</ol>
+<div class="warn only-win">
+  <span class="tip-label">If Windows doesn't give the location</span>
+  <p>
+    The app opens <strong>Settings → Privacy &amp; security → Location</strong> for you.
+    Switch on <strong>Location services</strong> and <strong>Let desktop apps access
+    your location</strong>, then press 📍 once more. Without a GPS, Windows finds
+    the place by Wi-Fi, so the locator can be a square off — check it.
+  </p>
+  <p>
+    Windows 7 and 8 can't tell apps where they are at all: type your locator
+    into <span class="ui">MY QTH LOCATOR</span> yourself (and the RDA into <span class="ui">MY RDA</span>).
+  </p>
+</div>
+<div class="warn only-mac">
+  <span class="tip-label">If you clicked “Don't Allow”</span>
+  <p>
+    macOS doesn't ask twice. Press 📍 again: the app opens
+    <strong>System Settings → Privacy &amp; Security → Location Services</strong>
+    for you — switch <strong>R2FEL-LOG</strong> on there and press 📍 once more.
+    If Location Services are switched off for the whole Mac, switch them on at
+    the top of the same page.
+  </p>
+</div>
+</section>
+
+<!-- ======================================================================= -->
+<section id="dupes">
+<h2>5. Worked before</h2>
+
+<p>
+  The moment you type a callsign that's already in your log, the app shows it
+  — and opens the logbook on those earlier contacts, without you asking:
+</p>
+<figure>
+  <img src="img/en/worked-before.webp" alt="A worked-before callsign with the log open below" loading="lazy" width="1350" height="1169">
+</figure>
+<ol class="legend">
+  <li><span class="ui">WORKED BEFORE · 2 QSOs</span> — how many times you've worked them.</li>
+  <li><span class="ui">Last:</span> — the most recent of those contacts. Click it for the full list. If that contact was made under another callsign of yours, it ends with <span class="ui">· MY CALL</span> and that callsign. Earlier contacts are found across the whole log, whichever of your callsigns they were made under.</li>
+  <li>The log shows <strong>only this station</strong>. <span class="ui">SHOW ALL</span> brings back the whole log (the earlier contacts stay highlighted); <span class="ui">SHOW ONLY THESE</span> narrows it again.</li>
+  <li>The earlier contacts, highlighted.</li>
+</ol>
+<p>
+  Clear the callsign and the log folds away again (if it opened by itself);
+  log the contact and it always folds away, ready for the next one. Group
+  stations get the same <span class="ui">WORKED BEFORE</span> badge.
+</p>
+<figure>
+  <img src="img/en/history.webp" alt="The list of earlier contacts" loading="lazy" width="729" height="355">
+  <figcaption>The list from “Last: …” — date, time, band, frequency, mode and reports of every earlier contact. <kbd>Esc</kbd> or Close.</figcaption>
+</figure>
+</section>
+
+<!-- ======================================================================= -->
+<section id="group">
+<h2>6. Pileups: several stations at once</h2>
+
+<p>
+  When several stations answer together — a pileup, or a group on a round
+  table — each one can be logged in the same go:
+</p>
+
+<div class="anim" data-frames="anim/en/pileup/">
+  <div class="anim-screen"><img width="1125" height="1075" alt="Logging a pileup, step by step"></div>
+  <div class="anim-bar">
+    <button type="button" class="anim-play" title="Play / pause">▶</button>
+    <div class="anim-progress"><div></div></div>
+    <span class="anim-title">A pileup</span>
+  </div>
+  <ol class="anim-steps">
+    <li>The first station goes into <span class="ui">CALLSIGN</span>, as usual.</li>
+    <li><kbd>Space</kbd> — the frame turns into a green group, the main station becomes number 1, and station 2 opens below, ready for the next callsign. Each one is looked up on its own. <kbd>Space</kbd> again for the next.</li>
+    <li>One too many? <kbd>Esc</kbd> in a group station removes it.</li>
+    <li><kbd>Enter</kbd> logs everybody at once — one QSO per station, same date, time, band and mode.</li>
+  </ol>
+</div>
+
+<figure>
+  <img src="img/en/group.webp" alt="A group of three stations in one green frame" loading="lazy" width="1281" height="1064">
+</figure>
+<ol class="legend">
+  <li><span class="ui">GROUP · 3 STATIONS</span> — the whole group in one green frame; the number counts every station in it, the main one included. Frequency, band and mode are here too — they're the same for all.</li>
+  <li><span class="ui">MAIN GROUP STATION</span> — the main station, number 1. It keeps its big card.</li>
+  <li>
+    <strong>One line per station</strong>: the callsign (spelled out under it, and looked up
+    as you type), the name and <span class="ui">NEW</span> or <span class="ui">WORKED ×2</span> —
+    a click on that opens the earlier contacts — then town, distance, weather and local
+    time. A station nobody has on file gets name, QTH and RDA fields right in its line.
+  </li>
+  <li>Every station has its <strong>own reports</strong>.</li>
+  <li><strong>✕</strong> removes the station (or <kbd>Esc</kbd> in its callsign).</li>
+  <li><span class="ui">👥 ADD STATION</span> — adds one more at the end. <kbd>Space</kbd> in a group station's callsign — or in its reports — adds the next one right below it.</li>
+  <li>The button says <strong>how many contacts it will log</strong>: the main station and every group station that has a callsign; empty ones don't count. Afterwards you see <span class="ui">✓ 3 QSO LOGGED</span>.</li>
+</ol>
+<p>
+  A group starts with <strong>👥</strong> beside the callsign, or <kbd>Space</kbd> in it. Once the
+  group is open that button steps aside — more stations come from <kbd>Space</kbd> and
+  <span class="ui">ADD STATION</span>. Remove the last group station and the frame turns amber
+  again, <span class="ui">MAIN STATION</span>.
+</p>
+<p>
+  <kbd>Space</kbd>, 👥 and <span class="ui">ADD STATION</span> add a station only once there's a callsign to add it after — nothing happens on an empty one — and never a second empty station: if one is still waiting for its callsign, the cursor goes there instead.
+</p>
+</section>
+
+<!-- ======================================================================= -->
+<section id="contest">
+<h2>7. Contest mode</h2>
+
+<figure>
+  <img src="img/en/contest.webp" alt="Contest mode with serial numbers" loading="lazy" width="1350" height="920">
+</figure>
+<ol class="legend">
+  <li><span class="ui">CONTEST</span> — switches contest mode on and off (it's lit while on). The setting is remembered.</li>
+  <li><strong>Serial sent</strong> — 001, 002, 003… It counts up by itself after every contact. You can type a different number; counting carries on from it.</li>
+  <li><strong>Serial received</strong> — the number they give you.</li>
+  <li><span class="ui">⟲ RESET</span> — back to 001, for the next contest. It asks first (in the middle
+    of a contest a stray press would lose your numbering); contacts already logged keep their numbers.</li>
+</ol>
+<p>
+  The rhythm: callsign → <kbd>Tab</kbd> → their number → <kbd>Enter</kbd>.
+  Group logging is off in contest mode — one station at a time. The serial
+  count survives quitting the app, so a contest can run over two evenings.
+</p>
+
+<h3 id="cabrillo">Your entry — Cabrillo</h3>
+<p>
+  After a contest you send your log to the organiser, and nearly all of them take
+  one kind of file only: <strong>Cabrillo</strong>. It isn't ADIF. It is plain
+  text — a header saying who entered and in what category, then one line per
+  contact, always in the same order.
+</p>
+<pre class="cab">START-OF-LOG: 3.0
+CONTEST: RUSSIAN-DX
+CALLSIGN: R2FEL
+CATEGORY-OPERATOR: SINGLE-OP
+CATEGORY-POWER: LOW
+CATEGORY-BAND: 40M
+CATEGORY-MODE: SSB
+GRID-LOCATOR: KO04FR
+NAME: Aleksei
+QSO:  7040 PH 2026-09-05 1432 R2FEL         59  001    UA3ABC        59  045
+QSO:  7045 PH 2026-09-05 1435 R2FEL         59  002    DL1XYZ        59  112
+END-OF-LOG:</pre>
+<p>
+  A <code>QSO:</code> line reads: frequency in kilohertz, mode (<code>PH</code> for
+  phone, <code>CW</code>, <code>FM</code>), date, UTC time, your callsign, your
+  report and the serial you <strong>sent</strong>, their callsign, their report and
+  the serial you <strong>received</strong>. Exactly what contest mode records.
+</p>
+<p>
+  To make one: ⚙ → <span class="ui">Export ADIF ›</span> → <span class="ui">IN WHAT FORM</span>
+  → <span class="ui">Cabrillo — a contest entry</span>. Four fields appear: the contest's
+  name as the organiser writes it (<code>CQ-WW-SSB</code>, <code>RUSSIAN-DX</code>; the
+  common ones are offered in a list), single or multi operator, power, and your name.
+  Callsign, locator and town come from your settings; band and mode are read off the
+  contacts themselves. Pick <span class="ui">Date range</span> above — the days of the
+  contest — and <span class="ui">CABRILLO ENTRY</span> saves a <code>.log</code> file.
+  That is what you send, by e-mail or through the organiser's upload form.
+</p>
+<p class="warn">
+  The app writes the <strong>usual exchange: report and serial</strong>. Some contests
+  ask for something else — a CQ zone, a district, an RDA number. Open the file in a
+  plain text editor and put that in the same columns instead of the serials, and check
+  the contest's own rules before sending: what they want, and in which category.
+</p>
+</section>
+
+<!-- ======================================================================= -->
+<section id="log">
+<h2>8. The logbook</h2>
+
+<p>
+  The log sits under the form, folded away so it doesn't get in the way.
+  <span class="ui">▸ LOG</span> opens and closes it; it also opens by itself for a
+  <a href="#dupes">worked-before</a> station.
+</p>
+<figure>
+  <img src="img/en/log.webp" alt="The logbook with two contacts ticked" loading="lazy" width="1350" height="1110">
+</figure>
+<ol class="legend">
+  <li><span class="ui">▾ LOG</span> — open / close the logbook.</li>
+  <li><strong>Search</strong> — by callsign, name, country, locator, RDA, QTH, band, mode, frequency or notes. <strong>✕</strong> clears it.</li>
+  <li><span class="ui">DELETE 2</span> — deletes the ticked contacts (after asking).</li>
+  <li><strong>Counts</strong>: shown, ticked, total.</li>
+  <li><strong>Click a contact</strong> to open it in the form and change it (see below). The checkbox at the start of a row ticks it; the one in the header ticks everything shown. <kbd>Shift</kbd>+click ticks a whole range.</li>
+  <li><strong>✕</strong> — deletes this one contact (after asking).</li>
+  <li><strong>Column edges</strong> can be dragged to make a column wider or narrower. A double-click on any edge puts them all back.</li>
+  <li><span class="ui">MY → CALL</span> — who worked whom: your callsign in amber, an arrow, theirs. An earlier callsign of yours is grey; with “/P”, “/M”, “/QRP” it's still today's and stays amber. A grey <strong>“?”</strong> — your callsign on that contact isn't recorded (it came from a file that doesn't give it, say); set it in <a href="#mycall">“My callsign on contacts”</a>. On a phone only theirs is shown.</li>
+  <li><span class="ui">QSL</span> — confirmations: <strong>L</strong> LoTW, <strong>e</strong> eQSL, <strong>H</strong> HAMLOG, <strong>✉</strong> your card by e-mail (click it to send; <a href="#card">more</a>). Grey outline — not sent, amber — sent, green — confirmed. Hover for the dates. A green <strong>e</strong> opens the eQSL card that came. Sending and checking: <a href="#qsl">“QSL confirmations”</a>.</li>
+</ol>
+
+<h3>Changing a logged contact</h3>
+<p>
+  While an old contact is open, the station bar shows <strong>the callsign it was
+  made under</strong> — most logs hold contacts from an earlier callsign. The moment
+  the edit is finished, saved or cancelled, your present callsign is back in the
+  bar, and that is what the next contact is logged under.
+</p>
+<figure>
+  <img src="img/en/edit.webp" alt="A saved contact open for editing" loading="lazy" width="1350" height="357">
+</figure>
+<ol class="legend">
+  <li><span class="ui">EDITING SAVED QSO</span> — the form is showing a contact from the log, not a new one. The top row shows the station it was logged under.</li>
+  <li><span class="ui">cancel</span> — leave it as it was.</li>
+  <li><span class="ui">SAVE CHANGES</span> (or <kbd>Enter</kbd>) — save what you changed. Group stations added while editing are logged as new contacts.</li>
+</ol>
+<p>
+  An edited contact keeps its QSL marks. But change the callsign, date, time, band or
+  mode of one already sent, and to LoTW, eQSL and HAMLOG it's a different contact — it's
+  queued to go again.
+</p>
+
+<div class="tip">
+  <span class="tip-label">Backup reminder</span>
+  <p>
+    After 15 contacts since your last full export, a line above the log
+    suggests making a backup, and ⚙ glows. Exporting the whole logbook
+    (<a href="#settings">section 9</a>) resets it.
+  </p>
+</div>
+</section>
+
+<!-- ======================================================================= -->
+<section id="settings">
+<h2>9. Settings</h2>
+
+<p>
+  ⚙ at the top right. Settings come in groups. A switch turns a thing on or off; a row
+  with <span class="ui">›</span> opens a page of its own, and <span class="ui">‹ Settings</span> or
+  <kbd>Esc</kbd> comes back. ✕ at the top right (every page has one) or <kbd>Esc</kbd> on the list
+  closes it all. A click beside the window closes nothing, so half-typed work can't be lost by
+  accident. At the foot of every page a 📖 link opens this manual straight at the right place.
+</p>
+<figure>
+  <img src="img/en/settings.webp" alt="The settings window" loading="lazy" width="972" height="2019">
+</figure>
+<ol class="legend">
+  <li><span class="ui">📖 HELP</span> — this manual (also <kbd>F1</kbd><span class="only-mac">, or Help in the menu bar</span>).</li>
+  <li><span class="ui">QRZ &amp; HamQTH logins</span> — the line under it shows which QRZ.RU, HamQTH and QRZ.com logins are set; click the row to change them.</li>
+  <li><span class="ui">FILL … QSO</span> — goes through contacts that are missing a name, country or QTH and fills them in from the callbooks. QRZ.RU allows one request every three seconds, so a big log takes a while; <span class="ui">STOP</span> keeps what's done. At the end it says how it went: <span class="ui">Filled in 10 · 3 not in the books · 5 had nothing to add</span> — "not in the books" means no callbook knows that callsign at all, "nothing to add" that it was found but held nothing new.<br>
+    <strong>The locator is not part of that count.</strong> Abroad it is the one thing nobody has: QRZ.RU keeps no locator field for foreign records, QRZ.com without the paid subscription gives the address but not the coordinates, and HamQTH only knows the stations that registered there. The app works the locator out from the town where it can, which usually succeeds; where it can't, the contact still counts as filled in as long as the name, country and town are there.</li>
+  <li><span class="ui">Phonetic alphabet</span> — spelling under the fields. Off hides every spelled-out line in the app.</li>
+  <li><span class="ui">Russian mode</span> — see <a href="#russian">section 11</a>.</li>
+  <li><span class="ui">Export ADIF ›</span> — saves the log to a file (the page is below).</li>
+  <li><span class="ui">Import ADIF ›</span> — adds contacts from an ADIF file (the page is below).</li>
+  <li><span class="ui">My callsign on contacts ›</span> — changes which of your callsigns a period's contacts are under (below).</li>
+  <li><span class="ui">Delete all contacts ›</span> — empties the logbook on this computer. The page offers an export first, then the red button — and the app asks once more.</li>
+  <li><span class="ui">LoTW ›</span> — sending contacts to LoTW and checking confirmations (<a href="#qsl">“QSL confirmations”</a>). Under the name: how many are sent, confirmed and waiting.</li>
+  <li><span class="ui">eQSL ›</span> — the same for eQSL.</li>
+  <li><span class="ui">HAMLOG ›</span> — the same for hamlog.online, by file.</li>
+  <li><span class="ui">QSL by e-mail ›</span> — your card, the mailbox to send from and the letter (<a href="#card">below</a>).</li>
+  <li><span class="ui">Debug log ›</span> — the app writes down what it does and every error in a file on this computer. <span class="ui">SAVE…</span> puts a copy on the Desktop to send to the author; <span class="ui">SHOW</span> opens the folder it's in. There are no passwords in it. (Desktop app only.)</li>
+  <li>Version, author and where to send feedback and ideas.</li>
+</ol>
+
+<h3 id="export">Export ADIF</h3>
+<figure>
+  <img src="img/en/settings-export.webp" alt="The export page" loading="lazy" width="972" height="1034">
+</figure>
+<ol class="legend">
+  <li>What to save: <span class="ui">Whole log</span>, a <span class="ui">Date range</span> (two dates appear), or the <span class="ui">Selected</span> contacts — the ones ticked in the log.</li>
+  <li>All your callsigns, or just one if you've worked under several.</li>
+  <li><span class="ui">IN WHAT FORM</span>: <strong>ADIF</strong> is the ordinary logbook file — every program reads it, and LoTW, eQSL, HAMLOG and QRZ.com all take it. <strong>Cabrillo</strong> is a contest entry for the organiser; what it is and how to fill it in is <a href="#cabrillo">in section 7</a>.</li>
+  <li>The button shows straight away how many contacts go into the file. The app asks where to save it, then shows that it's saved and where; <span class="ui">SHOW THE FILE</span> opens its folder. Every logging program reads ADIF — the whole log in one file is your backup, too.</li>
+</ol>
+
+<h3 id="import">Import ADIF</h3>
+<figure>
+  <img src="img/en/settings-import.webp" alt="The import page with a file chosen" loading="lazy" width="972" height="1163">
+</figure>
+<p>
+  <span class="ui">CHOOSE A FILE…</span> — the app shows first what's in the file, and adds nothing
+  until you press the button. It asks only what the file leaves open:
+</p>
+<ol class="legend">
+  <li>How many contacts the file has and their dates — and above all, <strong>how many are new</strong> and how many are in the log already (those aren't doubled; if the file knows more about them, that's filled in).</li>
+  <li>More than one callsign of yours in the file — which of them to take. Just one — no list.</li>
+  <li>If the file doesn't say which callsign of yours made the contacts, the app asks. The one you use now is filled in; if they were made under another, an earlier one say, type that.</li>
+  <li>The button says what will happen: “ADD 7 CONTACTS TO THE LOG”.</li>
+  <li>Only part of the file — this link shows two dates.</li>
+</ol>
+<p>
+  Contacts already in the log (same callsign, date, time and band) are skipped, not doubled;
+  details missing from them are taken from the file, and fuller text replaces text cut short.
+  A file with some fields in one encoding and some in another (files from HAMLOG can be like
+  that) is read right, and garbled Russian left by earlier imports is put back by itself.
+</p>
+
+<h3 id="result">Done — or not</h3>
+<figure>
+  <img src="img/en/settings-result.webp" alt="The “done” page after an import" loading="lazy" width="972" height="683">
+</figure>
+<p>
+  Every action in settings — import, export, sending and checking LoTW, eQSL, HAMLOG, changing
+  your callsign on contacts, clearing the log — ends on a page like this:
+</p>
+<ol class="legend">
+  <li>A green tick — it worked; a red cross — it didn't. Underneath: what exactly was done, or why not.</li>
+  <li>Where next: after an import, <span class="ui">SHOW IN THE LOG</span>; after an export, <span class="ui">SHOW THE FILE</span>; when a service turned the login down, <span class="ui">CHANGE THE LOGIN</span>.</li>
+  <li><span class="ui">DONE</span> — back (after an error, <span class="ui">BACK</span>).</li>
+</ol>
+<p>Small things, like a login saved, get a short green note at the bottom of the window that goes by itself.</p>
+
+<h3 id="mycall">My callsign on contacts</h3>
+<figure>
+  <img src="img/en/settings-mycall.webp" alt="Changing my callsign on a period's contacts" loading="lazy" width="972" height="855">
+</figure>
+<p>
+  When a log from another program has every contact under one callsign though some were made
+  under an earlier one, this puts it right at once:
+</p>
+<ol class="legend">
+  <li>The period. Empty — all of it.</li>
+  <li>Which callsign they're under now. “(none)” — the ones with no callsign of yours recorded (a “?” in the log).</li>
+  <li>Which one they should be under.</li>
+  <li>The button says how many contacts will change.</li>
+</ol>
+<p>Only your callsign on them changes; their LoTW, eQSL and HAMLOG marks stay.</p>
+
+<h3 id="logins">QRZ &amp; HamQTH logins</h3>
+<figure>
+  <img src="img/en/qrz-login.webp" alt="The callsign book logins card" loading="lazy" width="840" height="965">
+</figure>
+<ul>
+  <li><strong>QRZ.RU</strong> — the main one: it knows Russian stations best, with names in Russian and RDA.</li>
+  <li><strong>HamQTH</strong> — a free callbook (a free account is all it takes). It's asked <strong>at the same time</strong> as QRZ.RU, so there's no extra wait, and fills in what QRZ.RU lacks: grid, town, full names abroad. It often has the station's e-mail too. The line under the callsign says where the details came from: <code>found [qrz.ru + hamqth]</code>.</li>
+  <li><strong>QRZ.com</strong> — third: it fills in whatever neither QRZ.RU nor HamQTH had (and when neither knows the callsign, gives all it has). Without a subscription that's not much — a name, a town, a country, sometimes a grid. It's asked only when something is missing.</li>
+  <li>The order of trust is QRZ.RU → HamQTH → QRZ.com. Where another source has the same name written out in full (“Ivan” and “Ivan Petrov”), the full one is kept.</li>
+  <li>Any of them, or none. The logins are kept on this computer only and used for nothing but lookups. A saved password shows as dots (the app never shows the password itself). To change it, click in the field and type the new one; type nothing and the saved one stays. The LoTW and eQSL login pages work the same way.</li>
+</ul>
+
+<h3 id="updates">Checking for updates</h3>
+<p>
+  Once a day, at startup, the program quietly checks whether a newer version is out.
+  If one is, a line appears at the foot of the settings — <span class="ui">Version 1.0.14 is out</span> —
+  and a small amber dot on the ⚙ button. Clicking the line opens the page to download it from.
+  <strong>The program never updates itself</strong>: you download the new one and put it over the old
+  one. The logbook and the settings live elsewhere and are not touched.
+</p>
+<p>
+  The same call checks this copy in with the author, so he can see how many copies are in use around
+  the world and in which countries. Exactly four things go out:
+</p>
+<ul>
+  <li>a <strong>random number</strong> the program made up for itself on first run (only so one
+    computer can be told from another);</li>
+  <li>the <strong>version</strong> of the program;</li>
+  <li>the <strong>system</strong> — Mac or Windows;</li>
+  <li>the <strong>language</strong> — whether Russian mode is on.</li>
+</ul>
+<p>
+  The country is worked out from the network at the site's end, and <strong>the network address itself
+  is never stored</strong>. No callsign, no log, not one contact, no logins and no passwords ever leave
+  your computer.
+</p>
+<p>
+  It starts switched on, and the first launch says so in the line under the form. You can turn it off at
+  any time: ⚙ → <span class="ui">UPDATES</span> → <span class="ui">Check for updates</span>. With it off,
+  the program doesn't go online for this at all and says nothing about updates.
+</p>
+
+</section>
+
+<!-- ======================================================================= -->
+<section id="qsl">
+<h2>10. QSL confirmations: LoTW, eQSL, HAMLOG, e-mail</h2>
+
+<p>
+  Sending and checking are always buttons, pressed when you choose. What goes is the contacts
+  of your current callsign — “/P”, “/M”, “/QRP” included, under the plain callsign, as usual.
+  Contacts under earlier callsigns of yours stay in the log and go nowhere.
+</p>
+<p>
+  A contact with no band (neither a frequency nor a band filled in) is taken by no service. The app
+  names such contacts under the send button — click the contact in the log and fill in the frequency
+  or band. Contacts with no callsign of yours recorded (a “?” in the log) don't go either — they'd go
+  under the wrong one. With nothing to send, the same line says everything has gone already.
+</p>
+
+<h3 id="lotw">LoTW</h3>
+<figure>
+  <img src="img/en/settings-lotw.webp" alt="The LoTW page" loading="lazy" width="972" height="927">
+</figure>
+<ol class="legend">
+  <li><strong>TQSL</strong> — ARRL's free program that signs contacts with your certificate. It has to be installed and set up (certificate and Station Location); the app finds it by itself.</li>
+  <li><span class="ui">Station location</span> — one of those set up in TQSL. The contacts made as its callsign are what's sent.</li>
+  <li><span class="ui">LoTW login</span> — the login and password of the lotw.arrl.org website (not the certificate's). Needed to check confirmations; kept on this computer only.</li>
+  <li><span class="ui">SEND TO LoTW</span> — TQSL signs and sends the contacts LoTW doesn't have yet; the button says how many. Any TQSL sent before, it skips by itself.</li>
+  <li><span class="ui">CHECK CONFIRMATIONS</span> — asks LoTW which of your contacts it has (they may have gone from another program, too) and which are confirmed, and sets the <strong>L</strong> marks. Next time it asks only for what's new.</li>
+</ol>
+<ul>
+  <li>A certificate signs contacts of its own span of dates only. If some fall outside it, the app says how many and what the span is — and they're not in the button's count.</li>
+  <li>A contact can't be taken back out of LoTW. One edited after sending is queued again; the old one stays there too.</li>
+  <li>Sending works in the desktop app only, and only on this computer — not from a phone.</li>
+</ul>
+
+<h3 id="eqsl">eQSL</h3>
+<figure>
+  <img src="img/en/settings-eqsl.webp" alt="The eQSL page" loading="lazy" width="972" height="771">
+</figure>
+<ol class="legend">
+  <li><span class="ui">eQSL login</span> — your eqsl.cc callsign and password; with more than one QTH there, the QTH Nickname too. Kept on this computer only.</li>
+  <li><span class="ui">SEND TO eQSL</span> — sends the contacts that haven't gone yet. Ones eQSL already has, it turns down as duplicates — the app says “already there” and marks them sent. If eQSL turns one down for another reason, the app names it.</li>
+  <li><span class="ui">CHECK CONFIRMATIONS</span> — fetches the cards that have come, sets the <strong>e</strong> marks, and <strong>brings the card pictures down as well</strong>. The button is named the same for LoTW, eQSL and HAMLOG — it always means "go and see what has been confirmed".</li>
+</ol>
+<p>
+  The picture of a card that came is right there in the log: click the contact's green <strong>e</strong>.
+  You don't have to click them one by one — the pictures come by themselves after a check.
+  eQSL gives one card every 11 seconds (their rule, not ours), so thirty cards take about five
+  minutes. It runs in the background: close settings and carry on. The eQSL page counts them off —
+  <span class="ui">Card pictures: 4 of 27</span> — and while they come the same button reads
+  <span class="ui">STOP</span>. If it was interrupted (you closed the app), the rest arrive at the
+  next press of that button; the app never goes to eQSL on its own. What has come is kept on this
+  computer, opens at once from then on, and can be saved to a file. Where eQSL has no picture for a
+  contact (their record has a different time or mode), the app remembers and won't ask again until
+  the next check.
+</p>
+<p>eQSL counts towards eQSL's own awards; DXCC needs LoTW.</p>
+
+<h3 id="hamlog">HAMLOG</h3>
+<p>
+  hamlog.online doesn't take contacts from programs directly yet, so both ways go by file.
+  On the site both are under My calls: pick your callsign, and there are Upload ADIF and
+  Download ADIF.
+</p>
+<figure>
+  <img src="img/en/settings-hamlog.webp" alt="The HAMLOG page" loading="lazy" width="972" height="771">
+</figure>
+<ol class="legend">
+  <li><span class="ui">The hamlog.online website</span> — opens it in the browser, right at My calls.</li>
+  <li><span class="ui">FILE FOR HAMLOG</span> — saves the contacts HAMLOG doesn't have yet to a file (the button says how many) and marks them sent. Upload that file on the site with Upload ADIF. Close the save window instead, and nothing is marked.</li>
+  <li><span class="ui">CHECK BY FILE…</span> — pick the file the site's Download ADIF gave you. The app marks the contacts HAMLOG has, and the ones an HQSL confirms, with <strong>H</strong>. It adds no contacts from that file; if HAMLOG has some that aren't in the log, the app says how many — Import ADIF brings those in.</li>
+</ol>
+<h3 id="card">Your QSL card by e-mail</h3>
+<p>
+  The app can send the other station your QSL card by e-mail — with the contact's details
+  written right into the card. By hand only: one at a time, when you choose. The letter goes
+  from <strong>your own</strong> mailbox.
+</p>
+<figure>
+  <img src="img/en/settings-card.webp" alt="The “QSL by e-mail” page" loading="lazy" width="972" height="1368">
+</figure>
+<ol class="legend">
+  <li>Which card: <span class="ui">Your picture</span> — your own design, the details going into the places laid out for it; <span class="ui">Program's · dark</span> or <span class="ui">· light</span> — the app draws the card itself from your details, with its small mark in the corner.</li>
+  <li>What the card will look like — on a real contact of yours. Their callsign, the date, UTC, band, mode and report are typed in, typewriter-style; <strong>TNX QSL</strong> is ringed when their confirmation has come (LoTW, eQSL or HAMLOG), otherwise <strong>PSE QSL</strong>. RDA and grid are the ones logged with the contact.</li>
+  <li>For the program's card: your name, town, country and zones. <span class="ui">TAKE FROM THE CALLSIGN BOOKS</span> fills them in from your callsign.</li>
+  <li><span class="ui">Mailbox to send from</span> — the address and an <strong>app password</strong> (not your usual mail password: mail services give programs a separate one). For Mail.ru: Settings → Security → Passwords for external applications → Add, tick “Sending mail (SMTP)”. For Yandex, Gmail and others the steps appear once you type the address. <span class="ui">CHECK THE MAILBOX LOGIN</span> logs in without sending anything.</li>
+  <li><span class="ui">The letter</span> — your name for the signature, the subject and greeting in Russian (for RU, BY, KZ) and English (for everyone else). Their name, callsign, the date, band and your signature are put in by themselves.</li>
+</ol>
+<p>
+  Your picture: <span class="ui">CHOOSE…</span> and the app keeps a copy. Then, once, you show it
+  <strong>where on the picture each detail is printed</strong>: the <span class="ui">PLACE THE FIELDS…</span>
+  button beside it. Until there is a layout, the program's card goes instead.
+</p>
+
+<h4 id="cardlayout">Placing the fields on your card</h4>
+<p>
+  The window shows your card <strong>as it will really go out</strong> — not a mock-up but the very same
+  drawing the letter carries, with boxes outlined on top. It goes like this:
+</p>
+<ol>
+  <li>Along the top are the fields: callsign, date and time, band, mode, report, your RDA, your locator,
+    and the two rings, PSE QSL and TNX QSL. Click the one you are placing (it turns amber).</li>
+  <li>Drag a box on the card where it belongs. The real text appears inside it at once, so you can see
+    whether it fits.</li>
+  <li>Landed wrong? Drag the box itself and it moves. <span class="ui">REMOVE FIELD</span> takes the
+    selected one off, <span class="ui">START AGAIN</span> clears them all.</li>
+  <li>The lettering is sized from the height of the box: want it bigger, draw it taller. If the text is
+    too wide for the box it shrinks to fit.</li>
+  <li><span class="ui">Light lettering</span> / <span class="ui">Dark lettering</span> is about your RDA
+    and locator: white with a shadow reads on a photograph, dark reads on a pale card. The callsign, date
+    and the rest of the table are always printed dark, typewriter style.</li>
+  <li><span class="ui">Save the layout</span>. You needn't place all nine — whatever you leave out simply
+    isn't printed.</li>
+</ol>
+<p>
+  A layout belongs to the picture itself (the app knows it by the file's fingerprint), so you can keep
+  several cards and switch between them, each with its own layout.
+</p>
+<p>
+  <strong>A card remembers whose it is.</strong> When you lay a picture out, the program notes the
+  callsign then in <span class="ui">MY CALLSIGN</span> — it is the one printed on the card, after all.
+  Change your callsign later and contacts made under the new one get <strong>the program's own card</strong>
+  instead of your picture with the old callsign on it; the send window says why. Have a card printed with
+  the new callsign, choose it and lay it out, and everything falls back into place. Suffixes like
+  <code>/P</code> or <code>/M</code> don't count as a different callsign — the card stays yours.
+</p>
+<figure>
+  <img src="img/en/card-send.webp" alt="Sending a QSL card" loading="lazy" width="1092" height="1665">
+</figure>
+<p>
+  The card goes out 1050 pixels on the long side — the usual QSL 140 × 90 mm when printed — and the
+  letter weighs about a third of a megabyte. Their name is written the way the letter is: in Russian
+  in a Russian letter, in Latin in an English one.
+</p>
+<p>Sending is from the log: the <strong>✉</strong> mark in a contact's QSL column.</p>
+<ol class="legend">
+  <li>The card — exactly as it will go.</li>
+  <li><span class="ui">PSE QSL</span> or <span class="ui">TNX QSL</span> — which one to ring.</li>
+  <li>Their address. The app fills it in if this or an earlier contact had it, or HamQTH has it; otherwise <span class="ui">FIND ON QRZ.COM</span> opens their page — copy the address from there. An address you type is remembered for that callsign.</li>
+  <li>The letter in Russian or English. <strong>English</strong> unless Russian mode is on <em>and</em> the callsign is a Russian, Belarusian or Kazakh one. Switch it here, and edit the subject and the text while you're at it.</li>
+  <li><span class="ui">SEND</span> — the letter with the card goes; the contact's <strong>✉</strong> turns amber, with the date and address on hover. It can be sent again.</li>
+</ol>
+</section>
+
+<!-- ======================================================================= -->
+<section id="russian">
+<h2>11. Russian mode</h2>
+
+<p>The <span class="ui">Russian mode</span> switch in settings changes several things at once:</p>
+<ul>
+  <li>
+    Callsigns of <strong>Russia, Belarus and Kazakhstan</strong> are spelled in the
+    Russian phonetic alphabet — <code>UA3XQV</code> is read “Ульяна Анна Три Знак Щука Жук”
+    — and your own callsign, RDA and locator follow the same alphabet while
+    you work such a station. Everyone else stays in NATO spelling.
+  </li>
+  <li>Names and towns of those stations are shown in Russian.</li>
+  <li>The name and QTH you type for a station nobody has on file are always in Russian — whatever its country (“John” is written «Джон»), and even if the keyboard is in English.</li>
+  <li>Settings, the windows opened from them, and the notes about 📍 and backups are in Russian — and so is this manual.</li>
+  <li>Date and time are shown as <code>14.09.2026</code> and <code>17:25</code> — 24-hour, whatever the computer is set to.</li>
+</ul>
+<p>
+  With it off, nothing Cyrillic reaches your log: names and towns from QRZ.RU
+  are shown in Latin letters (Тула → Tula). The labels of the logging form
+  itself — CALLSIGN, LOG QSO — stay in English in both modes.
+</p>
+</section>
+
+<!-- ======================================================================= -->
+<section id="keys">
+<h2>12. Keyboard shortcuts</h2>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Key</th><th>Where</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><kbd>Enter</kbd></td><td>Callsign, a group callsign, reports, serial, frequency</td><td>Logs the contact — with every group station.</td></tr>
+    <tr><td><kbd>Tab</kbd></td><td>Callsign and on</td><td>Next field of this contact: (serial received) → (operator, QTH if not found) → report sent → report received. Stops at the last one.</td></tr>
+    <tr><td><kbd>Shift</kbd>+<kbd>Tab</kbd></td><td>The same fields</td><td>Back along the same chain.</td></tr>
+    <tr><td><kbd>Space</kbd></td><td>Callsign or reports — the main station's or a group station's</td><td>Adds the next station of the pileup (not in contest mode, and not while that station's callsign is empty). So: callsign, <kbd>Tab</kbd>, report, <kbd>Space</kbd>, next callsign…</td></tr>
+    <tr><td><kbd>Esc</kbd></td><td>In a group station</td><td>Removes that station.</td></tr>
+    <tr><td><kbd>Esc</kbd></td><td>Elsewhere in the form</td><td>Clears the callsign and everything found for it; the clock runs again.</td></tr>
+    <tr><td><kbd>Esc</kbd></td><td>A menu or window is open</td><td>Closes it — settings, a list, this manual — and nothing else.</td></tr>
+    <tr><td><kbd>F1</kbd></td><td>Anywhere</td><td>Opens this manual.</td></tr>
+    <tr class="only-win"><td><kbd>F11</kbd></td><td>Anywhere</td><td>Full screen and back.</td></tr>
+    <tr class="only-mac"><td><kbd>⌃</kbd><kbd>⌘</kbd><kbd>F</kbd></td><td>Anywhere</td><td>Full screen and back.</td></tr>
+    <tr><td><kbd>Shift</kbd>+click</td><td>A checkbox in the log</td><td>Ticks (or unticks) every contact between this one and the last one clicked.</td></tr>
+    <tr><td>Double-click</td><td>A column edge in the log header</td><td>Puts every column back to its standard width.</td></tr>
+    <tr><td>Right-click</td><td>Any field</td><td>The usual menu: copy, paste, cut, select all. In a password field, paste only — a password doesn't leave the program.</td></tr>
+    <tr class="only-mac"><td><kbd>⌘</kbd> <kbd>C</kbd> / <kbd>V</kbd> / <kbd>X</kbd> / <kbd>Z</kbd> / <kbd>A</kbd></td><td>Any field</td><td>Copy, paste, cut, undo, select all.</td></tr>
+    <tr class="only-mac"><td><kbd>⌘</kbd> <kbd>M</kbd> / <kbd>H</kbd></td><td>Anywhere</td><td>Minimize the window / hide the app.</td></tr>
+    <tr class="only-mac"><td><kbd>⌘</kbd> <kbd>W</kbd></td><td>Anywhere</td><td>Closes the window; the app stays in the Dock — click its icon to bring it back.</td></tr>
+    <tr class="only-mac"><td><kbd>⌘</kbd> <kbd>Q</kbd></td><td>Anywhere</td><td>Quits. Everything is already saved.</td></tr>
+    <tr class="only-win"><td><kbd>Ctrl</kbd> <kbd>C</kbd> / <kbd>V</kbd> / <kbd>X</kbd> / <kbd>Z</kbd> / <kbd>A</kbd></td><td>Any field</td><td>Copy, paste, cut, undo, select all.</td></tr>
+    <tr class="only-win"><td><kbd>Alt</kbd>+<kbd>F4</kbd></td><td>Anywhere</td><td>Closes the app. Everything is already saved.</td></tr>
+    <tr class="only-win"><td><kbd>Win</kbd>+<kbd>↓</kbd></td><td>Anywhere</td><td>Minimizes the window.</td></tr>
+  </tbody>
+</table>
+</div>
+<p>
+  Callsign, RDA and locator fields don't care about the keyboard layout —
+  there's no need to switch to English to type a callsign.
+</p>
+</section>
+
+<!-- ======================================================================= -->
+<section id="backup">
+<h2>13. Backups and moving to another computer</h2>
+<ul>
+  <li>Every contact is saved the moment it's logged — there's no “save” to forget. Your log lives inside the app on this computer.</li>
+  <li><strong>The app keeps its own copy.</strong> Once a day at the first launch — and straight after an import, and after every twenty new contacts — the whole log is written as an <code>.adi</code> file in the app's own folder; the last five are kept and older ones go by themselves. Nothing to switch on and nothing to answer: the foot of the LOG group in settings says when the last copy was made. It is there for the day the log inside the app goes (a reinstall, a fault): you take the newest file and import it.</li>
+  <li><strong>You still want a copy of your own.</strong> The automatic one sits on this same computer and goes with it. A real backup is a file you have put somewhere else:</li>
+  <li><strong>Backup</strong>: settings ⚙ → <span class="ui">Export ADIF ›</span> → <span class="ui">Whole log</span> → <span class="ui">EXPORT</span>. Keep the <code>.adi</code> file somewhere safe (iCloud Drive, a USB stick).</li>
+  <li><strong>Another computer</strong> — Mac or Windows: install the program there, then settings → <span class="ui">Import ADIF ›</span> → <span class="ui">CHOOSE FILE…</span>, pick your exported file — then the button at the bottom, which says how many contacts will be added: <span class="ui">ADD TO THE LOG · 128 QSO</span>.</li>
+  <li>The same file opens in any other logging program, and is what you upload to LoTW, eQSL or QRZ.com logbooks.</li>
+</ul>
+</section>
+
+<!-- ======================================================================= -->
+<section id="uninstall">
+<h2>14. Removing the app</h2>
+<div class="only-mac">
+<p>
+  Dragging the app to the Trash leaves its logbook and settings behind on the
+  Mac. To remove everything:
+</p>
+<ol>
+  <li>In the menu bar: <strong>R2FEL-LOG → Uninstall R2FEL HamLog…</strong></li>
+  <li>
+    The app says how many contacts you have and offers
+    <strong>Export ADIF First…</strong> — do that if you want to keep them.
+  </li>
+  <li><strong>Uninstall</strong>: the app, the logbook, the QRZ login and all settings go to the Trash, and the app quits.</li>
+</ol>
+<p>Until you empty the Trash, everything can still be dragged back.</p>
+</div>
+<div class="only-win">
+<ol>
+  <li>
+    Windows 10 and 11: <strong>Settings → Apps → Installed apps</strong>, find
+    <strong>R2FEL-LOG</strong>, <strong>⋯ → Uninstall</strong>. Windows 7 and 8:
+    <strong>Control Panel → Programs and Features</strong>, R2FEL-LOG, <strong>Uninstall</strong>.
+  </li>
+  <li>
+    The uninstaller asks whether to <strong>remove the logbook, the QRZ login
+    and the settings too</strong>. <strong>No</strong> (the default) keeps them — for
+    reinstalling later, they'll be there. <strong>Yes</strong> sends them to the
+    Recycle Bin. Export ADIF first if you want to keep your contacts.
+  </li>
+</ol>
+<p>Until you empty the Recycle Bin, the logbook folder can still be restored from it.</p>
+</div>
+</section>
+
+<!-- ======================================================================= -->
+<section id="faq">
+<h2>15. If something doesn't work</h2>
+
+<h3>Nothing is found / “lookup off”</h3>
+<p>
+  Check the logins in settings (the <span class="ui">QRZ &amp; HamQTH logins</span> row) and the
+  internet connection. A callsign neither database knows is simply
+  <span class="ui">not found</span> — type the details by hand.
+</p>
+
+<h3>No distance or weather on the card</h3>
+<p>
+  Fill in <span class="ui">MY QTH LOCATOR</span> (or press 📍). If the station's own record
+  has no locator, the card says so — there's nothing to measure from.
+</p>
+
+<h3>📍 shows an error</h3>
+<p>See <a href="#station">section 4</a>: location must be switched on for the computer and allowed for R2FEL-LOG.</p>
+
+<h3 id="debug">Something else went wrong — the debug log</h3>
+<p>
+  Whatever happened — an error, a crash, a window gone blank — the app has written
+  it down. Open settings ⚙ → <span class="ui">Debug log ›</span> → <span class="ui">SAVE…</span>,
+  and send the file from the Desktop to
+  <a href="mailto:r2fel@mail.ru?subject=R2FEL-LOG">r2fel@mail.ru</a> with a line on what you
+  were doing. The file itself is
+  <span class="only-mac"><code>~/Library/Logs/R2FEL-LOG/r2fel-log.txt</code></span><span class="only-win"><code>%APPDATA%\R2FEL-LOG\logs\r2fel-log.txt</code></span>
+  — if the app won't even start, it can be found there by hand.
+</p>
+
+<h3>The time looks wrong</h3>
+<p>
+  It's UTC, not your local time — as every radio log is kept. If
+  <span class="ui">SET BY HAND</span> is showing, the clock is stopped:
+  press <span class="ui">NOW</span>.
+</p>
+
+<h3 class="only-mac">“Can't be opened” on the first launch</h3>
+<p class="only-mac">See <a href="#start">section 1</a>: System Settings → Privacy &amp; Security → Open Anyway.</p>
+
+<h3 class="only-win">“Windows protected your PC” when installing</h3>
+<p class="only-win">See <a href="#start">section 1</a>: More info → Run anyway.</p>
+
+<h3 class="only-win">Squares instead of some icons (Windows 7)</h3>
+<p class="only-win">
+  Windows 7 lacks the colour symbols used on some buttons (⚙, 📍, 👥, 📖), so
+  they may look plain or be missing. The buttons work just the same; on
+  Windows 10 and 11 they look as in the pictures here.
+</p>
+</section>
+
+<footer>
+  <div class="sig"><span class="call">R2FEL</span><span class="name">HamLog</span></div>
+  <p>
+    Made by Aleksei Aleksandrov · R2FEL<br>
+    Feedback and ideas: <a href="mailto:r2fel@mail.ru?subject=R2FEL-LOG">r2fel@mail.ru</a>
+  </p>
+</footer>
+
+</div>
+<script src="help.js"></script>
+</body>
+</html>

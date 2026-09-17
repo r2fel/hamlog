@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: qso-log
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: QRZRU_USERNAME
+        sync: false
+      - key: QRZRU_PASSWORD
+        sync: false
+      - key: QRZCOM_USERNAME
+        sync: false
+      - key: QRZCOM_PASSWORD
+        sync: false
+      - key: ACCESS_KEY
+        sync: false

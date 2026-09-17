@@ -1,0 +1,97 @@
+{
+  "name": "qso-log-qrz",
+  "version": "1.0.15",
+  "license": "MIT",
+  "description": "R2FEL HamLog — local QSO logbook with QRZ.com callsign lookup",
+  "main": "electron-main.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "electron": "electron .",
+    "dist": "bash scripts/build-dmg.sh",
+    "dist:win": "bash scripts/build-win.sh",
+    "manual-images": "electron scripts/manual-images.js en && electron scripts/manual-images.js ru",
+    "postinstall": "node scripts/patch-electron-info.js && node scripts/build-native.js"
+  },
+  "build": {
+    "appId": "com.r2fel.qsolog",
+    "productName": "R2FEL-LOG",
+    "extraMetadata": {
+      "productName": "R2FEL-LOG"
+    },
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "electron-main.js",
+      "electron-preload.js",
+      "debug-log.js",
+      "server.js",
+      "public/**/*",
+      "native/location.node",
+      "package.json"
+    ],
+    "asarUnpack": [
+      "native/*.node"
+    ],
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "build/icon.icns",
+      "category": "public.app-category.utilities",
+      "identity": "-",
+      "hardenedRuntime": false,
+      "extendInfo": {
+        "NSLocationWhenInUseUsageDescription": "Your location is used once, when you tap the pin button, to fill in MY QTH GRID and MY RDA.",
+        "NSLocationUsageDescription": "Your location is used once, when you tap the pin button, to fill in MY QTH GRID and MY RDA."
+      }
+    },
+    "dmg": {
+      "title": "R2FEL-LOG"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "public/icons/app-icon-win.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "R2FEL-LOG",
+      "uninstallDisplayName": "R2FEL-LOG",
+      "installerLanguages": [
+        "en_US",
+        "ru_RU"
+      ],
+      "include": "build/installer.nsh",
+      "artifactName": "R2FEL-LOG-Setup-${version}.${ext}"
+    }
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "nodemailer": "6.10.1"
+  },
+  "devDependencies": {
+    "electron": "^44.3.0",
+    "electron-builder": "^26.15.3"
+  }
+}

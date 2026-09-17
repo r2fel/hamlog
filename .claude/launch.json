@@ -1,0 +1,43 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "qso-log",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "start"
+      ],
+      "port": 4173
+    },
+    {
+      "name": "qso-log-alt-port",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "PORT=4180",
+        "node",
+        "server.js"
+      ],
+      "port": 4180
+    },
+    {
+      "name": "r2fel-dev-app",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "electron"
+      ],
+      "port": 4174
+    },
+    {
+      "name": "r2fel-dev-updates",
+      "runtimeExecutable": "env",
+      "runtimeArgs": [
+        "UPDATE_BASE=http://127.0.0.1:4195",
+        "npm",
+        "run",
+        "electron"
+      ],
+      "port": 4174
+    }
+  ]
+}

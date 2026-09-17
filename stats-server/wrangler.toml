@@ -1,0 +1,38 @@
+# Настройки службы обновлений на Cloudflare.
+# Как всё это развернуть — в README.md рядом.
+
+name = "r2fel-hamlog-updates"
+main = "worker.mjs"
+compatibility_date = "2026-09-01"
+
+# База: одна на всю службу, создаётся командой wrangler d1 create.
+# database_id подставить свой — он появится после создания.
+[[d1_databases]]
+binding = "DB"
+database_name = "hamlog-stats"
+database_id = "a869d923-730b-4c3f-aa8b-2ac7052d5ba0"
+
+# Расписания нет: еженедельное письмо владелец решил не делать (17.09.2026) —
+# он смотрит страницу сводки сам. Если понадобится, вернуть эти две строки
+# (и положить ключ Telegram или Resend — см. digest.mjs):
+# [triggers]
+# crons = ["0 6 * * 1"]
+
+[vars]
+# Где выкладываются релизы — отсюда служба сама узнаёт последнюю версию.
+GITHUB_REPO = "r2fel/hamlog"
+# Пока релизов нет, можно просто написать версию руками:
+LATEST_VERSION = "1.0.15"
+DOWNLOAD_URL = "https://github.com/r2fel/hamlog/releases/latest"
+# Адрес страницы со сводкой (для письма).
+# Адрес страницы сводки со секретом здесь НЕ пишем: этот файл лежит в репозитории.
+# Понадобится (для письма) — положить секретом: wrangler secret put STATS_URL
+STATS_URL = ""
+# Отправитель — Gmail, а не mail.ru: mail.ru запрещает посторонним сервисам
+# отправлять письма от имени своих ящиков (DMARC p=reject), и письмо не дойдёт.
+MAIL_FROM = "stollwerck1984@gmail.com"
+MAIL_TO = "r2fel@mail.ru"
+
+# Секреты (НЕ здесь, а командой wrangler secret put ИМЯ):
+#   STATS_SECRET — длинный случайный кусок адреса страницы со сводкой
+#   BREVO_KEY    — ключ почтового сервиса для еженедельного письма

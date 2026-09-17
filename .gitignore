@@ -1,0 +1,8 @@
+node_modules/
+.env
+.DS_Store
+data/
+dist/
+native/*.node
+stats-server/.data/
+stats-server/.wrangler/

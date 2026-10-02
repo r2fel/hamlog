@@ -1,0 +1,87 @@
+<!doctype html>
+<!-- The English twin of the owner's Russian banner (site/img/banner-ru.jpg).
+     Rendered to site/img/banner-en.jpg by scripts/site-banner.js. -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../site/fonts/fonts.css">
+<style>
+  :root {
+    --panel: #26241f; --panel-raised: #2f2c26; --line: #443f37;
+    --paper: #ece7d8; --text-dim: #9c9587; --ink: #14130f;
+    --amber: #e8a23d; --amber-dim: #a97a3a; --green: #7ea36b;
+    --font-cond: 'Roboto Condensed', sans-serif;
+    --font-label: 'Barlow Condensed', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-text: 'IBM Plex Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 600px; background: #1c1b19; }
+  .b {
+    width: 600px; padding: 24px 42px 26px;
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px),
+      radial-gradient(120% 70% at 85% 0%, #2c2924 0%, #1d1c1a 55%, #191816 100%);
+    border: 1px solid #3a3731;
+    color: var(--paper);
+  }
+  .mark { display: flex; align-items: center; gap: 18px; }
+  .call {
+    font-family: var(--font-mono); font-weight: 700; font-size: 23px; letter-spacing: .16em;
+    color: var(--ink); background: var(--amber); border-radius: 6px;
+    padding: 9px 16px 8px calc(16px + .16em); line-height: 1;
+  }
+  .name { font-family: var(--font-label); font-weight: 700; font-size: 46px; line-height: 1; letter-spacing: .04em; }
+  h1 {
+    font-family: var(--font-cond); font-weight: 700; font-size: 38px; line-height: 1.2;
+    margin: 30px 0 34px; letter-spacing: -.005em;
+  }
+  h1 em { font-style: normal; color: var(--amber); }
+  .card { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #22201c; }
+  .card-top {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--panel-raised); border-bottom: 1px solid var(--line); padding: 14px 22px 14px 24px;
+  }
+  .cs { font-family: var(--font-mono); font-weight: 700; font-size: 34px; letter-spacing: .06em; line-height: 1.2; }
+  .cs i { display: inline-block; width: 3px; height: 32px; background: var(--amber); vertical-align: -4px; margin-left: 4px; }
+  .pill {
+    font-family: var(--font-label); font-weight: 700; font-size: 17px; letter-spacing: .06em;
+    color: var(--amber); border: 1.5px solid var(--amber-dim); border-radius: 999px; padding: 5px 14px;
+  }
+  .card-body { padding: 20px 24px 22px; }
+  .op { font-family: var(--font-cond); font-weight: 700; font-size: 23px; }
+  .qth { font-family: var(--font-cond); font-weight: 500; font-size: 20px; color: var(--text-dim); margin: 8px 0 12px; }
+  .wx { font-family: var(--font-mono); font-weight: 600; font-size: 20px; word-spacing: -.1em; }
+  .wx span { color: var(--text-dim); font-weight: 400; }
+  .feat {
+    font-family: var(--font-cond); font-weight: 700; font-size: 20px; letter-spacing: .07em;
+    color: var(--text-dim); margin: 24px 0 12px;
+  }
+  .free { font-family: var(--font-cond); font-weight: 600; font-size: 22px; }
+  .free b { color: var(--green); font-weight: 600; }
+  .free span { color: var(--text-dim); }
+  .btn {
+    margin-top: 16px; background: var(--amber); color: var(--ink); border-radius: 10px;
+    text-align: center; font-family: var(--font-text); font-weight: 700; font-size: 30px;
+    letter-spacing: .12em; padding: 18px 0 17px; line-height: 1;
+  }
+</style>
+</head>
+<body>
+<div class="b" id="banner">
+  <div class="mark"><span class="call">R2FEL</span><span class="name">HamLog</span></div>
+  <h1>Type a callsign —<br><em>the program finds</em><br>the rest</h1>
+  <div class="card">
+    <div class="card-top"><span class="cs">DL1TEST<i></i></span><span class="pill">★ NEW COUNTRY</span></div>
+    <div class="card-body">
+      <div class="op">Hans Müller</div>
+      <div class="qth">Germany, Munich · JN58 </div>
+      <div class="wx">+14°C&nbsp; 18:25 <span>local</span>&nbsp; 1 840 <span>km</span></div>
+    </div>
+  </div>
+  <div class="feat">PILEUPS <span style="color:#6e685c">·</span> CONTESTS <span style="color:#6e685c">·</span> LOTW <span style="color:#6e685c">·</span> EQSL <span style="color:#6e685c">·</span> ADIF</div>
+  <div class="free"><b>Free</b> <span>·</span> Mac and Windows</div>
+  <div class="btn">DOWNLOAD</div>
+</div>
+</body>
+</html>

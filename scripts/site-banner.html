@@ -1,0 +1,179 @@
+<!doctype html>
+<!-- Banners of the site and of GitHub, both languages in one file.
+     #banner  — the tall one beside the site's headline  -> site/img/banner-en.jpg, banner-ru.jpg
+     #social  — the wide link preview (also GitHub's "social preview") -> site/img/og-en.jpg
+     Rendered by scripts/site-banner (node_modules/.bin/electron scripts/site-banner). -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../site/fonts/fonts.css">
+<style>
+  :root {
+    --panel: #26241f; --panel-raised: #2f2c26; --line: #443f37;
+    --paper: #ece7d8; --text-dim: #9c9587; --ink: #14130f;
+    --amber: #e8a23d; --amber-dim: #a97a3a; --green: #7ea36b;
+    --font-cond: 'Roboto Condensed', sans-serif;
+    --font-label: 'Barlow Condensed', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --font-text: 'IBM Plex Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { background: #1c1b19; }
+  html[data-lang="en"] .ru, html[data-lang="ru"] .en { display: none !important; }
+  .bg {
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px),
+      radial-gradient(120% 70% at 85% 0%, #2c2924 0%, #1d1c1a 55%, #191816 100%);
+    border: 1px solid #3a3731; color: var(--paper);
+  }
+  .mark { display: flex; align-items: center; gap: 18px; }
+  .call {
+    font-family: var(--font-mono); font-weight: 700; font-size: 23px; letter-spacing: .16em;
+    color: var(--ink); background: var(--amber); border-radius: 6px;
+    padding: 9px 16px 8px calc(16px + .16em); line-height: 1;
+  }
+  .name { font-family: var(--font-label); font-weight: 700; font-size: 46px; line-height: 1; letter-spacing: .04em; }
+  h1 { font-family: var(--font-cond); font-weight: 700; line-height: 1.2; letter-spacing: -.005em; }
+  h1 em { font-style: normal; color: var(--amber); }
+  .card { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: #22201c; }
+  .card-top {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--panel-raised); border-bottom: 1px solid var(--line); padding: 14px 22px 14px 24px;
+  }
+  .cs { font-family: var(--font-mono); font-weight: 700; font-size: 34px; letter-spacing: .06em; line-height: 1.2; }
+  .cs i { display: inline-block; width: 3px; height: 32px; background: var(--amber); vertical-align: -4px; margin-left: 4px; }
+  .pill {
+    font-family: var(--font-label); font-weight: 700; font-size: 17px; letter-spacing: .06em;
+    color: var(--amber); border: 1.5px solid var(--amber-dim); border-radius: 999px; padding: 5px 14px;
+  }
+  .card-body { padding: 20px 24px 22px; }
+  .op { font-family: var(--font-cond); font-weight: 700; font-size: 23px; }
+  .qth { font-family: var(--font-cond); font-weight: 500; font-size: 20px; color: var(--text-dim); margin: 8px 0 12px; }
+  .wx { font-family: var(--font-mono); font-weight: 600; font-size: 19px; display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center; }
+  .wx span { color: var(--text-dim); font-weight: 400; }
+  .wx svg { width: 17px; height: 17px; vertical-align: -2px; margin-right: 5px; transform: rotate(63deg); }
+  /* the new things, in order of how much they change an evening on the air */
+  .new { margin: 24px 0 0; }
+  .new-label {
+    font-family: var(--font-label); font-weight: 700; font-size: 15px; letter-spacing: .16em;
+    color: var(--amber); margin-bottom: 9px;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-family: var(--font-cond); font-weight: 700; font-size: 19px; letter-spacing: .05em;
+    color: var(--ink); background: var(--amber); border-radius: 6px; padding: 5px 12px 4px; line-height: 1.2;
+  }
+  .chip.soft { background: none; color: var(--paper); border: 1.5px solid var(--amber-dim); padding: 3.5px 11px 2.5px; }
+  .feat {
+    font-family: var(--font-cond); font-weight: 700; font-size: 18px; letter-spacing: .07em;
+    color: var(--text-dim); margin: 16px 0 12px;
+  }
+  .free { font-family: var(--font-cond); font-weight: 600; font-size: 22px; }
+  .free b { color: var(--green); font-weight: 600; }
+  .free .dot { color: var(--text-dim); }
+  .btn {
+    margin-top: 16px; background: var(--amber); color: var(--ink); border-radius: 10px;
+    text-align: center; font-family: var(--font-text); font-weight: 700; font-size: 30px;
+    letter-spacing: .12em; padding: 18px 0 17px; line-height: 1;
+  }
+
+  #banner { width: 600px; padding: 24px 42px 26px; }
+  #banner h1 { font-size: 38px; margin: 28px 0 30px; }
+
+  #social { width: 1280px; height: 640px; padding: 56px 64px; display: flex; gap: 56px; align-items: center; }
+  #social .left { flex: 1 1 0; }
+  #social .right { width: 520px; flex: none; }
+  #social .mark { margin-bottom: 8px; }
+  #social h1 { font-size: 58px; margin: 26px 0 8px; line-height: 1.12; }
+  #social .sub { font-family: var(--font-cond); font-weight: 500; font-size: 24px; color: var(--text-dim); margin-bottom: 4px; }
+  #social .new { margin-top: 30px; }
+  #social .chip { font-size: 24px; padding: 6px 14px 5px; }
+  #social .chip.soft { padding: 4.5px 13px 3.5px; }
+  #social .free { margin-top: 26px; font-size: 26px; }
+  .panel { border: 1px solid var(--line); border-radius: 10px; background: #22201c; margin-top: 16px; overflow: hidden; }
+  .panel-top {
+    background: var(--panel-raised); border-bottom: 1px solid var(--line); padding: 8px 18px;
+    display: flex; justify-content: space-between;
+    font-family: var(--font-label); font-weight: 700; font-size: 15px; letter-spacing: .14em; color: var(--text-dim);
+  }
+  .panel-top b { color: var(--amber); font-weight: 700; }
+  .panel-body { padding: 12px 18px 14px; font-family: var(--font-mono); font-size: 17px; font-weight: 600; }
+  .panel-body .cw { font-size: 23px; letter-spacing: .04em; }
+  .panel-body .cw em { font-style: normal; color: var(--amber); }
+  .panel-body .mean { font-family: var(--font-cond); font-weight: 500; font-size: 15px; color: var(--text-dim); margin-top: 3px; letter-spacing: .02em; }
+  .spot { display: flex; gap: 14px; align-items: baseline; padding: 3px 0; }
+  .spot .f { color: var(--green); width: 92px; }
+  .spot .c { width: 100px; }
+  .spot .t { margin-left: auto; font-family: var(--font-label); font-size: 14px; letter-spacing: .08em; color: var(--amber); border: 1.5px solid var(--amber-dim); border-radius: 999px; padding: 0 9px; }
+  .spot .t.w { color: var(--text-dim); border-color: var(--line); }
+</style>
+</head>
+<body>
+
+<div class="bg" id="banner">
+  <div class="mark"><span class="call">R2FEL</span><span class="name">HamLog</span></div>
+  <h1><span class="en">Type a callsign —<br><em>the program finds</em><br>the rest</span><span class="ru">Набрали позывной —<br><em>остальное программа</em><br>найдёт сама</span></h1>
+  <div class="card">
+    <div class="card-top"><span class="cs">DL1TEST<i></i></span><span class="pill">★ NEW COUNTRY</span></div>
+    <div class="card-body">
+      <div class="op">Hans Müller</div>
+      <div class="qth"><span class="en">Germany, Munich · JN58</span><span class="ru">Германия, Мюнхен · JN58</span></div>
+      <div class="wx"><div>+14°C</div><div>18:25 <span class="en">local</span><span class="ru">у него</span></div><div>1 840 <span>km</span></div>
+        <div><svg viewBox="0 0 20 20"><path d="M10 1 L17 18 L10 14 L3 18 Z" fill="#e8a23d"/></svg>63°</div></div>
+    </div>
+  </div>
+  <div class="new">
+    <div class="new-label"><span class="en">NEW</span><span class="ru">НОВОЕ</span></div>
+    <div class="chips">
+      <span class="chip"><span class="en">CW DECODER</span><span class="ru">ДЕКОДЕР CW</span></span>
+      <span class="chip"><span class="en">DX CLUSTER</span><span class="ru">DX-КЛАСТЕР</span></span>
+      <span class="chip soft"><span class="en">BEARING</span><span class="ru">АЗИМУТ</span></span>
+      <span class="chip soft"><span class="en">3 THEMES</span><span class="ru">3 ТЕМЫ</span></span>
+    </div>
+  </div>
+  <div class="feat"><span class="en">PILEUPS · CONTESTS · LOTW · EQSL · ADIF</span><span class="ru">ПАЙЛАП · КОНТЕСТ · LOTW · EQSL · ADIF</span></div>
+  <div class="free"><b><span class="en">Free</span><span class="ru">Бесплатно</span></b> <span class="dot">·</span> <span class="en">Mac and Windows</span><span class="ru">Mac и Windows</span></div>
+  <div class="btn"><span class="en">DOWNLOAD</span><span class="ru">СКАЧАТЬ</span></div>
+</div>
+
+<div class="bg" id="social">
+  <div class="left">
+    <div class="mark"><span class="call">R2FEL</span><span class="name">HamLog</span></div>
+    <h1>The ham radio logbook<br><em>that does the work</em><br>for you</h1>
+    <div class="sub">Журнал радиосвязей, который работает за вас</div>
+    <div class="new">
+      <div class="chips">
+        <span class="chip">CW DECODER</span>
+        <span class="chip">DX CLUSTER</span>
+        <span class="chip soft">BEARING</span>
+        <span class="chip soft">LOTW · EQSL · ADIF</span>
+      </div>
+    </div>
+    <div class="free"><b>Free</b> <span class="dot">·</span> Mac and Windows <span class="dot">·</span> r2fel.com</div>
+  </div>
+  <div class="right">
+    <div class="card">
+      <div class="card-top"><span class="cs">DL1TEST<i></i></span><span class="pill">★ NEW COUNTRY</span></div>
+      <div class="card-body">
+        <div class="op">Hans Müller</div>
+        <div class="qth">Germany, Munich · JN58</div>
+        <div class="wx"><div>+14°C</div><div>18:25 <span>local</span></div><div>1 840 <span>km</span></div>
+          <div><svg viewBox="0 0 20 20"><path d="M10 1 L17 18 L10 14 L3 18 Z" fill="#e8a23d"/></svg>63°</div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-top"><span>CW DECODER</span><span><b>●</b> 700 Hz · 24 WPM</span></div>
+      <div class="panel-body"><div class="cw">CQ CQ DE <em>DL1TEST</em> K</div><div class="mean">CQ — calling anyone · DE — this is · K — over</div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-top"><span>DX CLUSTER</span><span>3 spots</span></div>
+      <div class="panel-body">
+        <div class="spot"><span class="f">14 025.0</span><span class="c">VK9XY</span><span class="t">NEW</span></div>
+        <div class="spot"><span class="f">7 012.3</span><span class="c">JA1ABC</span><span class="t w">WORKED ×2</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

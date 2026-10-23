@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="google-site-verification" content="dubu0DjmE4Dn9UgI40hFgIibc6vJgqlARsd6HaOOG-U" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R2FEL HamLog — free ham radio logbook for Mac and Windows</title>
+<link rel="canonical" href="https://r2fel.com/">
+<link rel="alternate" hreflang="en" href="https://r2fel.com/">
+<link rel="alternate" hreflang="ru" href="https://r2fel.com/ru/">
+<link rel="alternate" hreflang="x-default" href="https://r2fel.com/">
+<meta name="description" content="Free ham radio logbook for macOS and Windows: callsign lookup (QRZ.RU, HamQTH, QRZ.com), weather, local time and bearing, DX cluster, Morse (CW) decoder, pileups, contests, LoTW, eQSL, award.srr.ru, ADIF, Cabrillo. Бесплатный аппаратный журнал для Mac и Windows.">
+<meta property="og:title" content="R2FEL HamLog">
+<meta property="og:description" content="A free ham radio logbook that looks up the station you're working. macOS and Windows.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://r2fel.com/img/og-en.jpg">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:url" content="https://r2fel.com/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "R2FEL HamLog",
+  "alternateName": ["R2FEL-LOG", "R2FEL Ham Log"],
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "macOS, Windows 7, Windows 8, Windows 10, Windows 11",
+  "description": "Free ham radio logbook: callsign lookup, weather and local time, DX cluster, Morse decoder, LoTW, eQSL, ADIF, Cabrillo.",
+  "url": "https://r2fel.com/",
+  "downloadUrl": "https://github.com/r2fel/hamlog/releases/latest",
+  "codeRepository": "https://github.com/r2fel/hamlog",
+  "license": "https://opensource.org/licenses/MIT",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "author": { "@type": "Person", "name": "Aleksei Aleksandrov", "alternateName": "R2FEL" },
+  "sameAs": ["https://github.com/r2fel/hamlog"]
+}
+</script>
+<link rel="icon" type="image/png" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/icon-180.png">
+<link rel="stylesheet" href="fonts/fonts.css">
+<script>
+  // Russian for anyone whose browser speaks Russian (or chose it here before).
+  (function () {
+    var l = null;
+    try { l = localStorage.getItem('lang'); } catch (e) {}
+    if (!l) l = /^(ru|be|kk)\b/i.test(navigator.language || '') ? 'ru' : 'en';
+    document.documentElement.setAttribute('data-lang', l);
+    document.documentElement.lang = l;
+  })();
+</script>
+<style>
+  /* The program's own palette (public/index.html, #qso-root) — no new colours here. */
+  :root {
+    --chassis: #1c1b19;
+    --panel: #26241f;
+    --panel-raised: #2f2c26;
+    --line: #443f37;
+    --paper: #ece7d8;
+    --text: #ece7d8;
+    --text-dim: #9c9587;
+    --ink: #14130f;
+    --amber: #e8a23d;
+    --amber-dim: #a97a3a;
+    --green: #7ea36b;
+    --green-line: #4a6340;
+    --radius-s: 4px;
+    --radius-m: 8px;
+    --radius-l: 14px;
+    --radius-pill: 999px;
+    --font-cond: 'Roboto Condensed', 'Arial Narrow', sans-serif;
+    --font-label: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+    --font-text: 'IBM Plex Sans', -apple-system, 'Segoe UI', system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--chassis); color-scheme: dark; overflow-x: clip; }
+  body {
+    margin: 0;
+    background: var(--chassis);
+    color: var(--text);
+    font-family: var(--font-text);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  html[data-lang="en"] .ru, html[data-lang="ru"] .en { display: none !important; }
+  a { color: var(--amber); text-decoration-color: var(--amber-dim); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--amber); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+  /* Header */
+  header { border-bottom: 1px solid var(--line); }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .mark { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+  .mark-call {
+    font-family: var(--font-mono); font-weight: 700; font-size: 15px; line-height: 1;
+    letter-spacing: .16em; color: var(--ink); background: var(--amber);
+    border-radius: var(--radius-s); padding: 5px 8px 4px; padding-left: calc(8px + .16em);
+  }
+  .mark-name {
+    font-family: var(--font-label); font-weight: 700; font-size: 30px; line-height: 1;
+    letter-spacing: .06em; color: var(--paper);
+  }
+  .langs { display: flex; gap: 4px; }
+  .langs button {
+    font-family: var(--font-label); font-weight: 600; font-size: 15px; letter-spacing: .08em;
+    background: none; border: 1px solid var(--line); color: var(--text-dim);
+    border-radius: var(--radius-s); padding: 4px 10px; cursor: pointer;
+  }
+  .langs button[aria-pressed="true"] { color: var(--amber); border-color: var(--amber-dim); }
+
+  /* Hero */
+  .hero { padding: 64px 0 40px; }
+  .eyebrow {
+    font-family: var(--font-label); font-weight: 600; font-size: 15px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--amber); margin: 0 0 14px;
+  }
+  h1 {
+    font-family: var(--font-cond); font-weight: 700; font-size: clamp(34px, 5.4vw, 54px);
+    line-height: 1.08; margin: 0 0 20px;
+  }
+  h1 em { font-style: normal; color: var(--amber); }
+  .lead { font-size: 19px; color: var(--text); max-width: 60ch; margin: 0 0 12px; }
+  .lead-dim { color: var(--text-dim); max-width: 60ch; margin: 0; }
+  .hero-top { display: flex; gap: 40px; align-items: center; justify-content: space-between; }
+  .banner {
+    width: 300px; height: auto; flex: none; border: 1px solid var(--line);
+    border-radius: var(--radius-m); transform: rotate(2deg);
+  }
+
+  /* Downloads */
+  .dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 36px 0 14px; }
+  .dl a {
+    display: flex; flex-direction: column; gap: 2px; text-decoration: none;
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-m);
+    padding: 16px 18px; color: var(--text); transition: border-color .15s, background .15s;
+  }
+  .dl a:hover { border-color: var(--amber-dim); background: var(--panel-raised); }
+  .dl a.primary { background: var(--amber); border-color: var(--amber); color: var(--ink); }
+  .dl a.primary:hover { background: #f0ad4a; }
+  .dl .os {
+    font-family: var(--font-label); font-weight: 700; font-size: 24px; letter-spacing: .04em;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .dl .os::before { content: "⬇"; font-size: 18px; }
+  .dl .for { font-size: 14px; color: var(--text-dim); }
+  .dl a.primary .for { color: var(--ink); opacity: .75; }
+  .dl .file { font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); margin-top: 6px; word-break: break-all; }
+  .dl a.primary .file { color: var(--ink); opacity: .6; }
+  .dl-meta { font-size: 14px; color: var(--text-dim); margin: 0; }
+  .dl-meta .ver { font-family: var(--font-mono); color: var(--green); }
+
+  /* Screenshot */
+  .shot {
+    margin: 40px 0 0; border: 1px solid var(--line); border-radius: var(--radius-l);
+    overflow: hidden; background: var(--panel);
+  }
+  .shot img { display: block; width: 100%; height: auto; }
+  .shot-globe { max-width: 560px; margin: 24px auto 0; }
+
+  /* Live pictures: the real screenshots stay, motion graphics play over them (12 s loops). */
+  .lv { position: relative; container-type: inline-size; }
+  .lv-fx { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .lv-hl { position: absolute; border-radius: 10px; opacity: 0; border: 1px solid rgba(255, 255, 255, .5);
+    box-shadow: 0 0 0 100vmax rgba(8, 8, 7, .6), 0 0 3cqw rgba(255, 255, 255, .12); animation: lv-hl 12s ease infinite; }
+  .lv-hl::before { content: ""; position: absolute; inset: -.7cqw; border-radius: 14px; pointer-events: none;
+    background:
+      linear-gradient(var(--amber), var(--amber)) top left / 2cqw 2px no-repeat, linear-gradient(var(--amber), var(--amber)) top left / 2px 2cqw no-repeat,
+      linear-gradient(var(--amber), var(--amber)) top right / 2cqw 2px no-repeat, linear-gradient(var(--amber), var(--amber)) top right / 2px 2cqw no-repeat,
+      linear-gradient(var(--amber), var(--amber)) bottom left / 2cqw 2px no-repeat, linear-gradient(var(--amber), var(--amber)) bottom left / 2px 2cqw no-repeat,
+      linear-gradient(var(--amber), var(--amber)) bottom right / 2cqw 2px no-repeat, linear-gradient(var(--amber), var(--amber)) bottom right / 2px 2cqw no-repeat;
+    animation: lv-brk 12s ease infinite; animation-delay: inherit; }
+  .lv-cap { position: absolute; left: 50%; top: 2cqw; transform: translate(-50%, -1cqw); opacity: 0; white-space: nowrap; display: flex; align-items: center; gap: 1.8cqw;
+    font-family: var(--font-text); font-weight: 500; font-size: 2.1cqw; letter-spacing: .01em; color: var(--paper);
+    background: rgba(20, 19, 15, .7); -webkit-backdrop-filter: blur(12px) saturate(1.3); backdrop-filter: blur(12px) saturate(1.3);
+    border: 1px solid rgba(255, 255, 255, .16); border-radius: 14px; padding: 1.2cqw 2.4cqw 1.2cqw 1.8cqw;
+    box-shadow: 0 1cqw 3cqw rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.08); animation: lv-cap 12s ease infinite; }
+  .lv-dots { display: flex; gap: .55cqw; } .lv-dots i { width: .8cqw; height: .8cqw; border-radius: 50%; background: rgba(255,255,255,.22); }
+  .lv-dots i.on { background: var(--amber); box-shadow: 0 0 1cqw var(--amber); transform: scale(1.35); }
+  .lv-bar { position: absolute; left: 0; bottom: 0; height: .35cqw; width: 0; background: linear-gradient(90deg, transparent, var(--amber)); animation: lv-bar 12s linear infinite; }
+  .lv-glint { position: absolute; top: 0; bottom: 0; width: 26%; left: -30%; background: linear-gradient(100deg, transparent, rgba(255, 240, 200, .16), transparent);
+    animation: lv-glint 12s linear infinite; }
+  .lv .i1 { animation-delay: 0s; } .lv .i2 { animation-delay: 2s; } .lv .i3 { animation-delay: 4s; }
+  .lv .i4 { animation-delay: 6s; } .lv .i5 { animation-delay: 8s; } .lv .i6 { animation-delay: 10s; }
+  @keyframes lv-hl { 0% { opacity: 0; } 3% { opacity: 1; } 14% { opacity: 1; } 17% { opacity: 0; } 100% { opacity: 0; } }
+  @keyframes lv-cap { 0% { opacity: 0; transform: translate(-50%, -1cqw); } 3.5% { opacity: 1; transform: translate(-50%, 0); } 14% { opacity: 1; transform: translate(-50%, 0); }
+    17% { opacity: 0; transform: translate(-50%, .8cqw); } 100% { opacity: 0; } }
+  @keyframes lv-brk { 0%, 2% { transform: scale(1.06); opacity: 0; } 5% { transform: scale(1); opacity: 1; } 14% { opacity: 1; } 17% { opacity: 0; } 100% { opacity: 0; } }
+  @keyframes lv-bar { to { width: 100%; } }
+  @keyframes lv-glint { 0% { left: -30%; } 7% { left: 112%; } 100% { left: 112%; } }
+  /* globe: the disc floats on the page with its own halo, orbit and stars; four cards explain it */
+  .gwrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 36px; align-items: center; margin: 44px 0 0; }
+  .gcell { position: relative; aspect-ratio: 1; width: 100%; max-width: 500px; margin: 0 auto; container-type: inline-size; }
+  .lg-fx { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .lg-fx i.st { position: absolute; width: .6cqw; height: .6cqw; border-radius: 50%; background: #fff3d6; opacity: 0; animation: lg-tw 3.4s ease-in-out infinite; }
+  .g-glow { position: absolute; left: 6%; top: 6%; width: 88%; height: 88%; border-radius: 50%;
+    box-shadow: 0 0 8cqw 1cqw rgba(232, 162, 61, .22), 0 0 0 1px rgba(232, 162, 61, .25), inset 0 0 6cqw rgba(232, 162, 61, .1); }
+  .lg-orbit { position: absolute; left: 2%; top: 2%; width: 96%; height: 96%; border-radius: 50%; border: 1px dashed rgba(232, 162, 61, .38); animation: lg-rot 46s linear infinite reverse; }
+  .lg-orbit::after { content: ""; position: absolute; left: 50%; top: -.9cqw; width: 1.8cqw; height: 1.8cqw; margin-left: -.9cqw; border-radius: 50%;
+    background: var(--amber); box-shadow: 0 0 2cqw 4px rgba(232,162,61,.7); }
+  .gdisc { position: absolute; inset: 0; clip-path: circle(43.6% at 50% 50%); overflow: hidden; }
+  .gs { position: absolute; inset: 0; transform: scale(1.2536); }
+  .gs img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .lg-sweep { position: absolute; left: 14.9%; top: 14.9%; width: 70.2%; height: 70.2%; border-radius: 50%; animation: lg-rot 7s linear infinite;
+    background: conic-gradient(from 0deg, rgba(232,162,61,0) 0deg, rgba(232,162,61,0) 285deg, rgba(232,162,61,.2) 350deg, rgba(255,232,170,.45) 360deg); }
+  .gs svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .lg-run { fill: none; stroke: #fff3cf; stroke-width: 11; stroke-linecap: round; stroke-dasharray: .1 .9; filter: drop-shadow(0 0 12px #e8a23d); animation: lg-run 3.2s linear infinite; }
+  .lg-ring { fill: none; stroke-width: 6; opacity: 0; transform-box: fill-box; transform-origin: center; animation: lg-ring 2.4s ease-out infinite; }
+  .lg-ring.r2 { animation-delay: -1.2s; }
+  .lg-chip { position: absolute; left: 50%; top: 66%; transform: translate(-50%, 0) scale(.7); opacity: 0; font-family: var(--font-mono); font-weight: 700;
+    font-size: 2.9cqw; letter-spacing: .04em; color: var(--paper); white-space: nowrap; padding: 1cqw 2.4cqw; border-radius: 12px;
+    background: rgba(20, 19, 15, .72); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,.18);
+    box-shadow: 0 1cqw 3cqw rgba(0,0,0,.5); animation: lg-chip 8s cubic-bezier(.2,1.3,.4,1) infinite; }
+  .lg-img { animation: lg-breathe 14s ease-in-out infinite alternate; }
+  .gcards { list-style: none; margin: 0; padding: 0 8px 0 0; display: grid; gap: 12px; }
+  .gcard { display: flex; gap: 14px; align-items: flex-start; padding: 15px 17px; border-radius: 14px; position: relative;
+    background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.09);
+    animation: gc 8s ease infinite; }
+  .gcard svg { flex: none; width: 36px; height: 36px; padding: 8px; border-radius: 10px; color: var(--amber); background: rgba(232,162,61,.1);
+    border: 1px solid rgba(232,162,61,.25); animation: gci 8s ease infinite; animation-delay: inherit; }
+  .gcard b { display: block; font-family: var(--font-cond); font-size: 18px; color: var(--paper); }
+  .gcard .gtxt { display: block; font-size: 14px; line-height: 1.45; color: var(--text-dim); margin-top: 3px; }
+  .gcard.g1 { animation-delay: 0s; } .gcard.g2 { animation-delay: 2s; } .gcard.g3 { animation-delay: 4s; } .gcard.g4 { animation-delay: 6s; }
+  @keyframes gc { 0%, 100% { transform: none; border-color: rgba(255,255,255,.09); box-shadow: none; }
+    4%, 22% { transform: translateX(6px); border-color: rgba(232,162,61,.45); box-shadow: 0 8px 30px rgba(232,162,61,.1), inset 3px 0 0 var(--amber); }
+    27% { transform: none; border-color: rgba(255,255,255,.09); box-shadow: none; } }
+  @keyframes gci { 0%, 100% { background: rgba(232,162,61,.1); } 4%, 22% { background: rgba(232,162,61,.28); } 27% { background: rgba(232,162,61,.1); } }
+  @media (max-width: 760px) { .gwrap { grid-template-columns: 1fr; margin-top: 28px; } .gcards { display: none; } .gcell { max-width: 400px; } .lg-chip { font-size: 3.4cqw; } }
+  @keyframes lg-rot { to { transform: rotate(360deg); } }
+  @keyframes lg-tw { 0%, 100% { opacity: 0; transform: scale(.5); } 50% { opacity: .9; transform: scale(1.4); } }
+  @keyframes lg-run { from { stroke-dashoffset: .1; } to { stroke-dashoffset: -.9; } }
+  @keyframes lg-ring { 0% { opacity: .9; transform: scale(.4); } 100% { opacity: 0; transform: scale(3.4); } }
+  @keyframes lg-chip { 0%, 6% { opacity: 0; transform: translate(-50%, 1cqw) scale(.7); } 14%, 78% { opacity: 1; transform: translate(-50%, 0) scale(1); } 90%, 100% { opacity: 0; transform: translate(-50%, -1cqw) scale(.9); } }
+  @keyframes lg-breathe { from { transform: scale(1); } to { transform: scale(1.035); } }
+  @media (prefers-reduced-motion: reduce) {
+    .lv-fx, .lg-fx, .lg-sweep, .gs svg, .lg-chip { display: none; } .lg-img, .gcard, .gcard svg { animation: none; }
+  }
+  .shot-cap { text-align: center; color: var(--text-dim); font-size: 14px; margin: 10px 0 0; }
+
+  /* Sections */
+  section { padding: 56px 0 0; }
+  h2 {
+    font-family: var(--font-label); font-weight: 700; font-size: 16px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--text-dim); margin: 0 0 20px;
+    padding-bottom: 10px; border-bottom: 1px dashed var(--line);
+  }
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .feature {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-m);
+    padding: 18px 20px;
+  }
+  .feature h3 {
+    font-family: var(--font-cond); font-weight: 700; font-size: 20px; line-height: 1.2;
+    margin: 0 0 6px; color: var(--paper);
+  }
+  .feature p { margin: 0; font-size: 15px; color: var(--text-dim); }
+  .badge {
+    font-family: var(--font-label); font-weight: 700; font-size: 12px; letter-spacing: .14em; line-height: 1;
+    color: var(--ink); background: var(--amber); border-radius: var(--radius-s);
+    padding: 3px 6px 2px; margin-left: 8px; vertical-align: 3px; text-transform: uppercase;
+  }
+  .feature code, .tag {
+    font-family: var(--font-mono); font-size: .88em; color: var(--amber);
+  }
+
+  /* Videos: nothing loads from YouTube until it is clicked. The "cover" is live (8 s loop): a callsign is typed,
+     the card fills in with a photo, a globe turns and draws the path, DX spots run in — all drawn here. */
+  .videos { max-width: 920px; }
+  .video { position: relative; width: 100%; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-m);
+    background: var(--panel); aspect-ratio: 16 / 9; }
+  .video.is-short { aspect-ratio: 9 / 16; }
+  .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .video .vc { position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; padding: 0; cursor: pointer; overflow: hidden; text-decoration: none;
+    color: var(--paper); text-align: left; container-type: inline-size;
+    background: repeating-linear-gradient(0deg, rgba(255,255,255,.014) 0 1px, transparent 1px 3px),
+      radial-gradient(110% 120% at 92% 0%, #34302a 0%, #201f1c 55%, #191816 100%); }
+  .vc-mark { position: absolute; left: 5cqw; top: 5cqw; display: flex; align-items: center; gap: 1.6cqw; }
+  .vc-call { font-family: var(--font-mono); font-weight: 700; font-size: 2.1cqw; letter-spacing: .16em; color: var(--ink);
+    background: var(--amber); border-radius: 4px; padding: .8cqw 1.5cqw .7cqw calc(1.5cqw + .16em); line-height: 1; }
+  .vc-name { font-family: var(--font-label); font-weight: 700; font-size: 4cqw; line-height: 1; letter-spacing: .04em; }
+  .vc-title { position: absolute; left: 5cqw; top: 15cqw; width: 40cqw; font-family: var(--font-cond); font-weight: 700; font-size: 6.4cqw; line-height: 1.1; }
+  .vc-title em { font-style: normal; color: var(--amber); }
+  .vc-demo { display: block; position: absolute; right: 3.5cqw; top: 3.5cqw; width: 47cqw; }
+  .vc-field { font-family: var(--font-mono); font-weight: 700; font-size: 4.4cqw; letter-spacing: .08em; background: #14130f;
+    border: 1px solid var(--line); border-radius: 6px; padding: 1.6cqw 2.4cqw; height: 8cqw; line-height: 1; display: flex; align-items: center; }
+  .vc-typed { display: inline-block; overflow: hidden; white-space: nowrap; width: 0; animation: vc-type 8s steps(7, end) infinite; }
+  .vc-caret { width: .5cqw; height: 4.6cqw; background: var(--amber); margin-left: .6cqw; animation: vc-blink .8s steps(1) infinite; }
+  .vc-card { display: flex; align-items: center; gap: 2.2cqw; margin-top: 1.8cqw; background: var(--panel); border: 1px solid #5a4a2a;
+    border-left: 3px solid var(--amber); border-radius: 6px; padding: 1.8cqw 2.2cqw; opacity: 0; transform: translateY(1.6cqw);
+    animation: vc-card 8s cubic-bezier(.2,.8,.2,1) infinite; }
+  .vc-photo { flex: none; width: 12cqw; height: 8cqw; border-radius: 4px; overflow: hidden; border: 1px solid #4a4438; }
+  .vc-photo svg, .vc-globe svg { display: block; width: 100%; height: 100%; }
+  .vc-txt { display: block; min-width: 0; }
+  .vc-badge { display: inline-block; font-family: var(--font-label); font-weight: 700; font-size: 1.7cqw; letter-spacing: .06em;
+    background: #3aa6d8; color: var(--ink); border-radius: 3px; padding: .45cqw 1cqw; }
+  .vc-who { font-family: var(--font-cond); font-weight: 700; font-size: 3.3cqw; margin-top: 1cqw; line-height: 1.1; }
+  .vc-town { font-family: var(--font-mono); font-size: 1.75cqw; color: var(--amber); margin-top: .7cqw; }
+  .vc-geo { display: flex; align-items: center; gap: 1.6cqw; margin-top: 1.4cqw; opacity: 0; animation: vc-geo 8s ease infinite; }
+  .vc-globe { flex: none; width: 18cqw; height: 18cqw; filter: drop-shadow(0 0 1.4cqw rgba(232,162,61,.28)); }
+  .vc-route { display: block; min-width: 0; }
+  .vc-km { display: block; font-family: var(--font-mono); font-weight: 600; font-size: 2cqw; color: #7ea36b; }
+  .vc-to { display: block; font-family: var(--font-mono); font-size: 1.45cqw; color: var(--text-dim); margin: .3cqw 0 1cqw; }
+  .vc-spots { display: block; border-top: 1px solid #3a3731; padding-top: .9cqw; }
+  .vc-spot { display: flex; gap: 1.1cqw; align-items: baseline; font-family: var(--font-mono); font-size: 1.6cqw; line-height: 1.55;
+    color: var(--paper); white-space: nowrap; opacity: 0; transform: translateX(2cqw); animation: vc-spot 8s cubic-bezier(.2,.8,.2,1) infinite; }
+  .vc-spot:nth-child(2) { animation-delay: .35s; } .vc-spot:nth-child(3) { animation-delay: .7s; } .vc-spot:nth-child(4) { animation-delay: 1.05s; }
+  .vc-spot b { color: var(--amber); font-weight: 600; } .vc-spot i { font-style: normal; color: var(--text-dim); margin-left: auto; }
+  .vc-spot.is-head { font-family: var(--font-label); font-weight: 700; letter-spacing: .12em; font-size: 1.3cqw; color: var(--text-dim); }
+  .vc-morse { position: absolute; left: 0; right: 0; bottom: 3cqw; height: 2cqw; opacity: .55; }
+  .vc-morse svg { display: block; width: 200%; height: 100%; animation: vc-run 14s linear infinite; }
+  .vc-play { position: absolute; left: 5cqw; bottom: 9cqw; display: flex; align-items: center; gap: 1.8cqw;
+    font-family: var(--font-label); font-weight: 700; font-size: 2.6cqw; letter-spacing: .08em; }
+  .vc-play i { font-style: normal; width: 8cqw; height: 8cqw; border-radius: 50%; background: var(--amber); color: var(--ink);
+    display: flex; align-items: center; justify-content: center; font-size: 3.4cqw; padding-left: .7cqw; animation: vc-pulse 2.4s ease-out infinite; }
+  .video .vc:hover .vc-play i { background: #f0b252; }
+  /* globe inner motion */
+  .vc-g-land { animation: vc-land 9s linear infinite; }
+  .vc-g-mer { transform-box: view-box; transform-origin: 50px 50px; animation: vc-mer 6s ease-in-out infinite alternate; }
+  .vc-g-mer.m2 { animation-delay: -2s; } .vc-g-mer.m3 { animation-delay: -4s; }
+  .vc-g-arc { stroke-dasharray: 1; stroke-dashoffset: 1; animation: vc-arc 8s ease infinite; }
+  .vc-g-dot { opacity: 0; animation: vc-dot 8s ease infinite; }
+  .vc-g-ring { opacity: 0; transform-box: fill-box; transform-origin: center; animation: vc-ring 2s ease-out infinite; }
+  .vc-g-ring.r2 { animation-delay: -1s; }
+  /* vertical (Shorts) cover */
+  .is-short .vc-mark { left: 8cqw; top: 8cqw; gap: 2.4cqw; }
+  .is-short .vc-call { font-size: 5.4cqw; } .is-short .vc-name { font-size: 10cqw; }
+  .is-short .vc-title { left: 8cqw; top: 26cqw; width: 84cqw; font-size: 15cqw; }
+  .is-short .vc-demo { left: 8cqw; right: 8cqw; top: 60cqw; width: auto; }
+  .is-short .vc-field { font-size: 8.6cqw; height: 15cqw; padding: 3cqw 5cqw; border-radius: 8px; }
+  .is-short .vc-caret { width: 1cqw; height: 9cqw; }
+  .is-short .vc-card { gap: 3cqw; margin-top: 3cqw; padding: 3.4cqw 4cqw; }
+  .is-short .vc-photo { width: 21cqw; height: 14cqw; border-radius: 6px; }
+  .is-short .vc-badge { font-size: 3.4cqw; padding: .9cqw 2cqw; }
+  .is-short .vc-who { font-size: 6.6cqw; margin-top: 1.8cqw; } .is-short .vc-town { font-size: 3.6cqw; margin-top: 1.2cqw; }
+  .is-short .vc-geo { gap: 3cqw; margin-top: 3cqw; } .is-short .vc-globe { width: 26cqw; height: 26cqw; }
+  .is-short .vc-km { font-size: 4.4cqw; } .is-short .vc-to { font-size: 3.2cqw; margin: .6cqw 0 2cqw; }
+  .is-short .vc-spots { padding-top: 1.6cqw; } .is-short .vc-spot { font-size: 3.5cqw; gap: 2cqw; } .is-short .vc-spot.is-head { font-size: 2.8cqw; }
+  .is-short .vc-morse { bottom: 4cqw; height: 3.4cqw; }
+  .is-short .vc-play { left: 8cqw; bottom: 11cqw; gap: 3.6cqw; font-size: 6cqw; }
+  .is-short .vc-play i { width: 17cqw; height: 17cqw; font-size: 7.6cqw; padding-left: 1.4cqw; }
+  @keyframes vc-type { 0%, 2% { width: 0; } 14%, 92% { width: 8.6ch; } 100% { width: 0; } }
+  @keyframes vc-card { 0%, 14% { opacity: 0; transform: translateY(1.6cqw); } 21%, 90% { opacity: 1; transform: none; } 97%, 100% { opacity: 0; } }
+  @keyframes vc-geo { 0%, 22% { opacity: 0; } 28%, 90% { opacity: 1; } 97%, 100% { opacity: 0; } }
+  @keyframes vc-spot { 0%, 30% { opacity: 0; transform: translateX(2cqw); } 37%, 90% { opacity: 1; transform: none; } 97%, 100% { opacity: 0; } }
+  @keyframes vc-arc { 0%, 30% { stroke-dashoffset: 1; } 48%, 90% { stroke-dashoffset: 0; } 97%, 100% { stroke-dashoffset: 1; } }
+  @keyframes vc-dot { 0%, 26% { opacity: 0; } 32%, 90% { opacity: 1; } 97%, 100% { opacity: 0; } }
+  @keyframes vc-ring { 0% { opacity: .9; transform: scale(.5); } 100% { opacity: 0; transform: scale(2.6); } }
+  @keyframes vc-land { to { transform: translateX(-120px); } }
+  @keyframes vc-mer { from { transform: scaleX(1); } to { transform: scaleX(.08); } }
+  @keyframes vc-blink { 50% { opacity: 0; } }
+  @keyframes vc-run { to { transform: translateX(-50%); } }
+  @keyframes vc-pulse { 0% { box-shadow: 0 0 0 0 rgba(232, 162, 61, .5); } 70%, 100% { box-shadow: 0 0 0 2.6cqw rgba(232, 162, 61, 0); } }
+  @media (prefers-reduced-motion: reduce) {
+    .vc-typed { animation: none; width: 8.6ch; } .vc-card, .vc-geo, .vc-spot { animation: none; opacity: 1; transform: none; }
+    .vc-caret, .vc-morse svg, .vc-play i, .vc-g-land, .vc-g-mer, .vc-g-ring { animation: none; }
+    .vc-g-arc { animation: none; stroke-dashoffset: 0; } .vc-g-dot { animation: none; opacity: 1; } .vc-g-spark { display: none; }
+  }
+  .video-cap { font-size: 14px; color: var(--text-dim); margin: 10px 0 0; max-width: 920px; }
+  .video-note { font-size: 13px; color: var(--text-dim); margin: 6px 0 0; max-width: 920px; }
+  .video.is-short { display: none; }
+  @media (max-width: 640px) {
+    #video { display: none; }
+    .video.is-short { display: block; width: min(100%, 380px); margin: 0 auto; }
+  }
+
+  /* Install / privacy */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .note {
+    background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius-m);
+    padding: 20px 22px; font-size: 15px;
+  }
+  .note h3 { font-family: var(--font-cond); font-weight: 700; font-size: 20px; margin: 0 0 8px; }
+  .note p { margin: 0 0 10px; color: var(--text-dim); }
+  .note p:last-child { margin-bottom: 0; }
+  .note b { color: var(--text); font-weight: 600; }
+  .note.ok { border-color: var(--green-line); }
+  .note.ok h3 { color: var(--green); }
+
+  footer { margin-top: 64px; border-top: 1px solid var(--line); padding: 28px 0 40px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center; justify-content: space-between; }
+  footer p { margin: 0; font-size: 14px; color: var(--text-dim); }
+  .seventy3 { font-family: var(--font-mono); color: var(--amber); }
+
+  .banner-link { flex: none; }
+  .banner { display: block; }
+  /* Thank-you block: live. Each tester's callsign lights up, a line draws to R2FEL and a spark runs along it
+     (8 s loop). Callsigns are the CALLS list in the script at the bottom — add one and the picture re-lays itself. */
+  .thx { position: relative; margin: 0 0 14px; aspect-ratio: 1000 / 330; overflow: hidden; container-type: inline-size;
+    border: 1px solid #3a3731; border-radius: var(--radius-m); color: var(--paper);
+    background: repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px),
+      radial-gradient(110% 120% at 90% 0%, #2f2b25 0%, #1f1e1b 55%, #191816 100%); }
+  .thx-text { position: absolute; left: 4.4cqw; top: 50%; transform: translateY(-50%); width: 40cqw; }
+  .thx-mark { display: flex; align-items: center; gap: 1.2cqw; margin-bottom: 2cqw; }
+  .thx-call { font-family: var(--font-mono); font-weight: 700; font-size: 1.5cqw; letter-spacing: .16em; color: var(--ink); background: var(--amber);
+    border-radius: 4px; padding: .6cqw 1.1cqw .5cqw calc(1.1cqw + .16em); line-height: 1; }
+  .thx-name { font-family: var(--font-label); font-weight: 700; font-size: 3cqw; line-height: 1; letter-spacing: .04em; }
+  .thx h3 { font-family: var(--font-cond); font-weight: 700; font-size: 5.2cqw; line-height: 1.08; margin: 0; }
+  .thx h3 em { font-style: normal; color: var(--amber); }
+  .thx-sub { font-size: max(12px, 1.5cqw); line-height: 1.5; color: var(--text-dim); margin: 1.4cqw 0 0; max-width: 34cqw; }
+  .thx-net { position: absolute; right: 2cqw; top: 3cqw; bottom: 6cqw; width: 50cqw; }
+  .thx-net svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .thx-line { stroke: var(--amber-dim); stroke-width: .55; fill: none; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: .75;
+    animation: thx-line 8s ease infinite; }
+  .thx-hub { position: absolute; left: 50%; top: 50%; width: 9cqw; height: 9cqw; transform: translate(-50%, -50%); }
+  .thx-hub b { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; border-radius: 50%; z-index: 2;
+    background: var(--amber); color: var(--ink); font-family: var(--font-mono); font-size: 1.7cqw; letter-spacing: .1em; padding-left: .1em; }
+  .thx-hub i { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid var(--amber); opacity: 0; animation: thx-wave 3s ease-out infinite; }
+  .thx-hub i:nth-child(2) { animation-delay: -1s; } .thx-hub i:nth-child(3) { animation-delay: -2s; }
+  .thx-st { position: absolute; transform: translate(-50%, -50%) scale(.6); opacity: 0; z-index: 3;
+    font-family: var(--font-mono); font-weight: 700; font-size: 2.5cqw; letter-spacing: .1em; color: var(--ink); background: var(--amber);
+    border-radius: 7px; padding: 1.2cqw 2cqw 1.1cqw calc(2cqw + .1em); line-height: 1; white-space: nowrap;
+    animation: thx-pop 8s cubic-bezier(.2,1.3,.4,1) infinite; box-shadow: 0 0 0 0 rgba(232,162,61,.5); }
+  .thx-spark { fill: #fff6dc; filter: drop-shadow(0 0 3px #e8a23d); }
+  .thx-morse { position: absolute; left: 0; right: 0; bottom: 1.8cqw; height: 1.6cqw; opacity: .5; }
+  .thx-morse svg { display: block; width: 200%; height: 100%; animation: vc-run 16s linear infinite; }
+  @keyframes thx-pop { 0%, 3% { opacity: 0; transform: translate(-50%, -50%) scale(.6); } 9%, 88% { opacity: 1; transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 0 0 rgba(232,162,61,0); }
+    12% { box-shadow: 0 0 0 1.6cqw rgba(232,162,61,.0); } 96%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(.8); } }
+  @keyframes thx-line { 0%, 6% { stroke-dashoffset: 1; } 20%, 88% { stroke-dashoffset: 0; } 96%, 100% { stroke-dashoffset: 1; } }
+  @keyframes thx-wave { 0% { opacity: .8; transform: scale(1); } 100% { opacity: 0; transform: scale(3); } }
+  @media (prefers-reduced-motion: reduce) {
+    .thx-st { animation: none; opacity: 1; transform: translate(-50%, -50%); } .thx-line { animation: none; stroke-dashoffset: 0; }
+    .thx-hub i, .thx-morse svg { animation: none; } .thx-spark { display: none; }
+  }
+  @media (max-width: 640px) {
+    .thx { aspect-ratio: auto; height: 118cqw; }
+    .thx-text { left: 6cqw; right: 6cqw; top: 6cqw; width: auto; transform: none; }
+    .thx-mark { margin-bottom: 3cqw; } .thx-call { font-size: 3cqw; } .thx-name { font-size: 6cqw; } .thx h3 { font-size: 10cqw; }
+    .thx-sub { font-size: 3.6cqw; max-width: none; margin-top: 2.4cqw; }
+    .thx-net { left: 3cqw; right: 3cqw; top: 54cqw; bottom: 10cqw; width: auto; }
+    .thx-hub { width: 17cqw; height: 17cqw; } .thx-hub b { font-size: 3.2cqw; }
+    .thx-st { font-size: 4.6cqw; border-radius: 8px; padding: 2.2cqw 3.6cqw 2cqw calc(3.6cqw + .1em); }
+    .thx-morse { bottom: 3cqw; height: 3cqw; }
+  }
+  .thanks-note { color: var(--text-dim); max-width: 760px; }
+  @media (max-width: 820px) {
+    .banner-link { display: none !important; }
+    .dl, .features { grid-template-columns: 1fr; }
+    .two { grid-template-columns: 1fr; }
+    .hero { padding-top: 40px; }
+  }
+  @media (max-width: 420px) {
+    .wrap { padding: 0 16px; }
+    .mark-name { font-size: 25px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="mark" href="/"><span class="mark-call">R2FEL</span><span class="mark-name">HamLog</span></a>
+    <div class="langs" role="group" aria-label="Language">
+      <button type="button" data-set-lang="en">EN</button>
+      <button type="button" data-set-lang="ru">RU</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <div class="hero-top">
+    <div>
+    <p class="eyebrow"><span class="en">Free ham radio logbook · macOS &amp; Windows</span><span class="ru">Бесплатный аппаратный журнал · Mac и Windows</span></p>
+    <h1><span class="en">The ham radio logbook<br><em>that does the work</em><br>for you</span><span class="ru">Журнал радиосвязей,<br><em>который работает</em><br>за вас</span></h1>
+    <p class="lead">
+      <span class="en">The name, country, town, grid square and RDA district fill in by themselves. You see the distance, the weather and the local time at the other end, and at once whether you've worked them before.</span>
+      <span class="ru">Имя, страна, город, локатор и район RDA подставляются сами. Видно расстояние, погоду и который час у корреспондента, и сразу понятно, работали вы с ним раньше или нет.</span>
+    </p>
+    <p class="lead-dim">
+      <span class="en">No subscription, no cloud: your log stays on your own computer.</span>
+      <span class="ru">Без подписок и без облака: журнал лежит на вашем компьютере.</span>
+    </p>
+    </div>
+    <a class="banner-link" id="banner" href="#downloads">
+      <img class="banner en" src="img/banner-en.jpg" width="600" height="740" alt="R2FEL HamLog — type a callsign, the program finds the rest">
+      <img class="banner ru" src="img/banner-ru.jpg" width="600" height="741" alt="R2FEL HamLog — набрали позывной, остальное программа найдёт сама">
+    </a>
+    </div>
+
+    <div class="dl" id="downloads">
+      <a class="primary" data-file="mac" href="https://github.com/r2fel/hamlog/releases/latest">
+        <span class="os">macOS</span>
+        <span class="for"><span class="en">Apple Silicon (M1 and newer)</span><span class="ru">Apple Silicon (M1 и новее)</span></span>
+        <span class="file"></span>
+      </a>
+      <a data-file="win" href="https://github.com/r2fel/hamlog/releases/latest">
+        <span class="os">Windows 10 / 11</span>
+        <span class="for"><span class="en">64-bit</span><span class="ru">64 бит</span></span>
+        <span class="file"></span>
+      </a>
+      <a data-file="win78" href="https://github.com/r2fel/hamlog/releases/latest">
+        <span class="os">Windows 7 / 8</span>
+        <span class="for"><span class="en">also 8.1 and any 32-bit Windows</span><span class="ru">а также 8.1 и любая 32-битная</span></span>
+        <span class="file"></span>
+      </a>
+    </div>
+    <p class="dl-meta">
+      <span class="en">Version</span><span class="ru">Версия</span> <span class="ver" id="ver">1.0.65</span> ·
+      <a href="https://github.com/r2fel/hamlog/releases"><span class="en">all versions</span><span class="ru">все версии</span></a> ·
+      <a href="https://github.com/r2fel/hamlog"><span class="en">source code on GitHub</span><span class="ru">исходный код на GitHub</span></a>
+    </p>
+    <p class="dl-meta">
+      <span class="en">First launch only: macOS or Windows may say the program can't be verified (no paid certificate). Mac: System Settings → Privacy &amp; Security → Open Anyway. Windows: More info → Run anyway.</span>
+      <span class="ru">Только при первом запуске: macOS или Windows могут написать, что не могут проверить программу (нет платного сертификата). Mac: Системные настройки → Конфиденциальность и безопасность → «Всё равно открыть». Windows: «Подробнее» → «Выполнить в любом случае».</span>
+    </p>
+
+    <div class="shot lv">
+      <img class="en" src="img/screenshot-en.webp" width="1326" height="581" alt="R2FEL HamLog: a callsign found, with name, town, distance, weather and local time">
+      <img class="ru" src="img/screenshot-ru.webp" width="1326" height="581" alt="R2FEL HamLog: найденный позывной — имя, город, расстояние, погода и местное время">
+      <div class="lv-fx" aria-hidden="true"><span class="lv-hl i1" style="left:4.2%;top:28.8%;width:78.6%;height:12.6%"></span><span class="lv-hl i2" style="left:22.6%;top:69.6%;width:24.2%;height:17.4%"></span><span class="lv-hl i3" style="left:6.0%;top:62.2%;width:15.8%;height:24.6%"></span><span class="lv-hl i4" style="left:22.6%;top:62.0%;width:26.2%;height:7.6%"></span><span class="lv-hl i5" style="left:45.6%;top:77.2%;width:24.0%;height:11.6%"></span><span class="lv-hl i6" style="left:70.0%;top:77.2%;width:20.2%;height:11.6%"></span><span class="lv-cap i1"><span class="lv-dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></span><span class="en">Type a callsign — the rest fills in itself</span><span class="ru">Набрали позывной — остальное подставится само</span></span><span class="lv-cap i2"><span class="lv-dots"><i></i><i class="on"></i><i></i><i></i><i></i><i></i></span><span class="en">Name, town and country from the callbook</span><span class="ru">Имя, город и страна — из справочника</span></span><span class="lv-cap i3"><span class="lv-dots"><i></i><i></i><i class="on"></i><i></i><i></i><i></i></span><span class="en">The station’s photo</span><span class="ru">Фото корреспондента</span></span><span class="lv-cap i4"><span class="lv-dots"><i></i><i></i><i></i><i class="on"></i><i></i><i></i></span><span class="en">New contact, new RDA district — you see it at once</span><span class="ru">Новый позывной и новый район RDA — видно сразу</span></span><span class="lv-cap i5"><span class="lv-dots"><i></i><i></i><i></i><i></i><i class="on"></i><i></i></span><span class="en">Distance and the heading for your antenna</span><span class="ru">Расстояние и азимут, куда крутить антенну</span></span><span class="lv-cap i6"><span class="lv-dots"><i></i><i></i><i></i><i></i><i></i><i class="on"></i></span><span class="en">Weather and local time over there</span><span class="ru">Погода и местное время у корреспондента</span></span><span class="lv-glint"></span><span class="lv-bar"></span></div>
+    </div>
+    <div class="gwrap">
+      <div class="gcell">
+        <div class="lg-fx" id="lg-fx" aria-hidden="true"><span class="g-glow"></span><span class="lg-orbit"></span></div>
+        <div class="gdisc"><div class="gs">
+          <img class="lg-img en" src="img/globe-en.webp" width="1600" height="1600" loading="lazy" alt="The globe window: both stations and the great-circle arc between them, distance and bearing">
+          <img class="lg-img ru" src="img/globe-ru.webp" width="1600" height="1600" loading="lazy" alt="Окно глобуса: обе станции и дуга большого круга между ними, расстояние и азимут">
+          <span class="lg-sweep"></span>
+          <svg viewBox="0 0 1600 1600" aria-hidden="true"><path class="lg-run" pathLength="1" d="M1115 707L484 891"/>
+            <circle class="lg-ring" cx="1115" cy="707" r="26" stroke="#e8a23d"/><circle class="lg-ring r2" cx="1115" cy="707" r="26" stroke="#e8a23d"/>
+            <circle class="lg-ring" cx="484" cy="891" r="26" stroke="#7ea36b"/><circle class="lg-ring r2" cx="484" cy="891" r="26" stroke="#7ea36b"/></svg>
+          <span class="lg-chip">6 390 km · 299°</span>
+        </div></div>
+      </div>
+      <ul class="gcards">
+        <li class="gcard g1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18"/></svg>
+          <span><b><span class="en">Its own window</span><span class="ru">Отдельное окно</span></b><span class="gtxt"><span class="en">It opens beside the program, not inside it — put it on a second screen.</span><span class="ru">Открывается рядом с программой, а не внутри неё — можно вынести на второй монитор.</span></span></span></li>
+        <li class="gcard g2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg>
+          <span><b><span class="en">Always on top of the program</span><span class="ru">Всегда поверх программы</span></b><span class="gtxt"><span class="en">It stays above the logbook, never above other apps.</span><span class="ru">Держится поверх журнала, но не поверх чужих программ.</span></span></span></li>
+        <li class="gcard g3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 15v5h-5M20 9V4h-5M4 15v5h5"/></svg>
+          <span><b><span class="en">Grows as you stretch it</span><span class="ru">Растёт вместе с окном</span></b><span class="gtxt"><span class="en">Stretch the window and the globe grows with it.</span><span class="ru">Растянули окно — вместе с ним растёт и глобус.</span></span></span></li>
+        <li class="gcard g4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="17" r="2"/><circle cx="19" cy="7" r="2"/><path d="M6.5 15.5C9 8 14 6 17.5 6.8"/></svg>
+          <span><b><span class="en">Short and long path</span><span class="ru">Короткий и длинный путь</span></b><span class="gtxt"><span class="en">The great-circle arc, the distance and the heading — one press for the long way round.</span><span class="ru">Дуга большого круга, расстояние и азимут — одним нажатием и длинный путь.</span></span></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <section>
+    <h2><span class="en">What it does</span><span class="ru">Что умеет</span></h2>
+    <div class="features">
+      <div class="feature">
+        <h3><span class="en">A globe in its own window</span><span class="ru">Глобус в отдельном окне</span><span class="badge"><span class="en">new</span><span class="ru">новое</span></span></h3>
+        <p><span class="en">Both stations, the arc between them, distance and bearing. The window stays above the program, turns to the contact by itself, grows with you when you stretch it, and has + and − buttons. Off until you turn it on.</span><span class="ru">Обе станции, дуга между ними, расстояние и азимут. Окно всегда поверх программы, само поворачивается к связи, растёт вместе с вами, когда вы его растягиваете, и у него есть кнопки + и −. Включается только по вашему желанию.</span></p>
+      </div>
+      <div class="feature">
+        <h3><span class="en">The other station's photo</span><span class="ru">Фото корреспондента</span><span class="badge"><span class="en">new</span><span class="ru">новое</span></span></h3>
+        <p><span class="en">The callbook's photos beside the name — several, with arrows and a bigger view — fetched ahead in the background for the callsigns in your log, so they are there the moment you work that station again. Kept in a folder you choose.</span><span class="ru">Фото из справочника рядом с именем — несколько, со стрелками и крупным просмотром — скачиваются заранее, в фоне, для позывных вашего журнала, и при следующей связи уже на месте. Хранятся в папке, которую вы выбираете.</span></p>
+      </div>
+      <div class="feature">
+        <h3><span class="en">Colour marks, as in JTDX</span><span class="ru">Цветные метки, как в JTDX</span><span class="badge"><span class="en">new</span><span class="ru">новое</span></span></h3>
+        <p><span class="en">Type a callsign and the mark under it says at once: new callsign — blue; known, but on a new band — lime; new country — emerald; known country on a new band — pink; already worked on this band — plain.</span><span class="ru">Набрали позывной — метка под ним сразу говорит: новый позывной — голубая; известный, но на новом диапазоне — салатовая; новая страна — изумрудная; известная страна на новом диапазоне — розовая; уже работали на этом диапазоне — без подсветки.</span></p>
+      </div>
+      <div class="feature">
+        <h3><span class="en">A file for QRZ.com</span><span class="ru">Файл для QRZ.com</span><span class="badge"><span class="en">new</span><span class="ru">новое</span></span></h3>
+        <p><span class="en">The contacts you haven't sent yet, as one file to upload on qrz.com (Logbook → Import) — no subscription needed. Sent ones get the Q mark.</span><span class="ru">Связи, которые вы ещё не отправляли, — одним файлом для загрузки на qrz.com (Logbook → Import), подписка не нужна. У отправленных появляется отметка Q.</span></p>
+      </div>
+      <div class="feature">
+        <h3><span class="en">One log on several computers</span><span class="ru">Один журнал на нескольких компьютерах</span><span class="badge"><span class="en">new</span><span class="ru">новое</span></span></h3>
+        <p><span class="en">Sync through a folder your cloud keeps in step — iCloud Drive, OneDrive, Yandex Disk, Dropbox — or by a file. Nothing is deleted without asking. A settings backup brings a new computer to life in a minute.</span><span class="ru">Синхронизация через папку, которую держит ваше облако, — iCloud Drive, OneDrive, Яндекс.Диск, Dropbox, — или через файл. Ничего не удаляется без вопроса. Копия настроек поднимает новый компьютер за минуту.</span></p>
+      </div>
+      <div class="feature">
+        <h3><span class="en">The sun and the bands</span><span class="ru">Солнце и прохождение</span><span class="badge"><span class="en">new</span><span class="ru">новое</span></span></h3>
+        <p><span class="en">K, A and SFI in the header, and a window that says in plain words which bands are open right now: green — far stations can be heard, red — almost silence. The same colours show as dots in the band list. Refreshed every hour.</span><span class="ru">В шапке K, A и SFI, а в окне простыми словами сказано, какие диапазоны открыты прямо сейчас: зелёный — слышно далеко, красный — почти тишина. Те же цвета — точками в списке диапазонов. Обновляется каждый час.</span></p>
+      </div>
+      <div class="feature">
+        <h3><span class="en">What to say on air</span><span class="ru">Что сказать в эфире</span><span class="badge"><span class="en">new</span><span class="ru">новое</span></span></h3>
+        <p><span class="en">Ready words for a general call — your callsign spelled out, the band in words, for POTA with your park — and a typical contact in five steps, from the call to goodbye, with what you say set apart from what they answer. Press 📍 and the parks nearest to you are offered.</span><span class="ru">Готовые слова общего вызова — ваш позывной по буквам, диапазон словами, а для POTA ещё и ваш парк — и типовой разговор в пять шагов, от вызова до прощания: то, что говорите вы, выделено, ответы корреспондента отдельно. Нажали 📍 — программа предлагает ближайшие парки.</span></p>
+      </div>
+      <div class="feature">
+        <h3><span class="en">Morse (CW) decoder</span><span class="ru">Декодер телеграфа</span><span class="badge"><span class="en">new</span><span class="ru">новое</span></span></h3>
+        <p><span class="en">Listens to the microphone or a cable from the receiver and writes the letters. Finds the speed itself, tells two stations apart, lights up callsigns and explains PSE, QTH, 73 under the words.</span><span class="ru">Слушает микрофон или кабель от приёмника и пишет буквами. Скорость находит сам, различает две станции, подсвечивает позывные и под словами объясняет PSE, QTH, 73.</span></p>
+      </div>
+      <div class="feature">
+        <h3><span class="en">DX cluster built in</span><span class="ru">DX-кластер внутри</span><span class="badge"><span class="en">new</span><span class="ru">новое</span></span></h3>
+        <p><span class="en">28 nodes ready to pick. Click a spot and the callsign and frequency are in the form with the band set — each marked <code>NEW</code> or <code>WORKED ×N</code> from your own log.</span><span class="ru">28 узлов на выбор. Щёлкнули по споту — позывной и частота уже в форме, диапазон выставлен, и у каждого отметка <code>NEW</code> или <code>WORKED ×N</code> по вашему журналу.</span></p>
+      </div>
+      <div class="feature">
+        <h3><span class="en">Full screen, three themes</span><span class="ru">Весь экран и три темы</span><span class="badge"><span class="en">new</span><span class="ru">новое</span></span></h3>
+        <p><span class="en">On a big screen the log stands in a tall column on the right while the form stays put. Amber, grey or soft light — and the program remembers the window, the borders, everything.</span><span class="ru">На большом экране журнал встаёт высокой колонкой справа, а форма остаётся на месте. Янтарная, серая или мягкая светлая — и программа помнит окно, границы, всё.</span></p>
+      </div>
+      <div class="feature">
+        <h3><span class="en">A log that fits you</span><span class="ru">Журнал под себя</span><span class="badge"><span class="en">new</span><span class="ru">новое</span></span></h3>
+        <p><span class="en">Choose the columns, sort by any of them, search that forgives the wrong keyboard layout. Tens of thousands of contacts without a stutter.</span><span class="ru">Колонки выбираются, сортировка по любой, поиск прощает не ту раскладку. Десятки тысяч связей без задержек.</span></p>
+      </div>
+      <div class="feature">
+        <h3><span class="en">award.srr.ru and RDA</span><span class="ru">award.srr.ru и RDA</span><span class="badge"><span class="en">new</span><span class="ru">новое</span></span></h3>
+        <p><span class="en">Send the log to award.srr.ru with your key, choosing which of your callsigns goes; get a ready file for the RDA award.</span><span class="ru">Отправка журнала на award.srr.ru по вашему ключу, с выбором позывного; готовый файл для диплома RDA.</span></p>
+      </div>
+      <div class="feature">
+        <h3><span class="en">Type it your way</span><span class="ru">Вводите как удобно</span><span class="badge"><span class="en">new</span><span class="ru">новое</span></span></h3>
+        <p><span class="en">Frequency as <code>14.2</code>, <code>14200</code> or <code>14 200.5</code> — the band follows. DIGITAL reports as signal-to-noise (−14, +09). POTA park fields when you want them.</span><span class="ru">Частота как <code>14.2</code>, <code>14200</code> или <code>14 200.5</code> — диапазон подставится сам. Рапорты DIGITAL — сигнал/шум (−14, +09). Парки POTA — когда нужны.</span></p>
+      </div>
+      <div class="feature">
+        <h3><span class="en">Three callbooks at once</span><span class="ru">Три справочника сразу</span></h3>
+        <p><span class="en">QRZ.RU and HamQTH are asked together; QRZ.com fills in whatever neither knew. Russian stations come back with names in Russian.</span><span class="ru">QRZ.RU и HamQTH спрашиваются одновременно, чего нет у них — дописывает QRZ.com. Имена российских станций — по-русски.</span></p>
+      </div>
+      <div class="feature">
+        <h3><span class="en">Weather, time and bearing</span><span class="ru">Погода, время и азимут</span></h3>
+        <p><span class="en">At the other end of the contact, plus the great-circle distance and an arrow to point the antenna by. The local time is worked out in the program itself, wherever you are; the weather has more than one source.</span><span class="ru">У корреспондента, плюс расстояние по дуге большого круга и стрелка, куда поворачивать антенну. Местное время считает сама программа, где бы вы ни были; у погоды несколько источников.</span></p>
+      </div>
+      <div class="feature">
+        <h3><span class="en">Duplicates at a glance</span><span class="ru">Повторы видны сразу</span></h3>
+        <p><span class="en"><code>WORKED BEFORE</code> with every earlier contact one click away; <code>★ NEW COUNTRY / RDA / BAND</code> for firsts.</span><span class="ru"><code>WORKED BEFORE</code> и все прошлые связи по щелчку; <code>★ NEW COUNTRY / RDA / BAND</code> — когда впервые.</span></p>
+      </div>
+      <div class="feature">
+        <h3><span class="en">Pileups and contests</span><span class="ru">Пайлапы и контесты</span></h3>
+        <p><span class="en">Several stations in one entry — callsign, space, next callsign. Serial numbers and Cabrillo export.</span><span class="ru">Несколько станций в одной записи — позывной, пробел, следующий. Серийные номера и экспорт Cabrillo.</span></p>
+      </div>
+      <div class="feature">
+        <h3><span class="en">QSL in one place</span><span class="ru">QSL в одном месте</span></h3>
+        <p><span class="en">LoTW (through TQSL), eQSL with the cards you receive, HAMLOG, and your own QSL card by e-mail.</span><span class="ru">LoTW (через TQSL), eQSL с картинками, HAMLOG и своя QSL-карточка по e-mail.</span></p>
+      </div>
+      <div class="feature">
+        <h3><span class="en">ADIF, backups, manual</span><span class="ru">ADIF, копии, инструкция</span></h3>
+        <p><span class="en">Import and export, an automatic copy of the log, phonetics under every field and a two-language manual (F1).</span><span class="ru">Импорт и экспорт, автоматическая копия журнала, фонетика под полями и инструкция на двух языках (F1).</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="en">Video</span><span class="ru">Видео</span></h2>
+    <div class="videos">
+      <div class="video" id="video" data-id="dT-elrx3lEU">
+        <a class="vc" href="https://www.youtube.com/watch?v=dT-elrx3lEU" target="_blank" rel="noopener" aria-label="Watch the video on YouTube">
+          <span class="vc-mark"><span class="vc-call">R2FEL</span><span class="vc-name">HamLog</span></span>
+          <span class="vc-title"><span class="en">See it<br>in <em>a minute</em></span><span class="ru">Посмотрите<br>за <em>минуту</em></span></span>
+          <span class="vc-demo">
+            <span class="vc-field"><span class="vc-typed en">KC1TEST</span><span class="vc-typed ru">UA9TEST</span><span class="vc-caret"></span></span>
+            <span class="vc-card"><span class="vc-photo"></span><span class="vc-txt"><span class="vc-badge">● NEW CONTACT</span>
+              <span class="vc-who" style="display:block"><span class="en">John Miller</span><span class="ru">Сергей Смирнов</span></span>
+              <span class="vc-town" style="display:block"><span class="en">Boston · United States</span><span class="ru">Новосибирск · Россия</span></span></span></span>
+            <span class="vc-geo"><span class="vc-globe"></span><span class="vc-route">
+              <span class="vc-km"><span class="en">6 390 km · 299°</span><span class="ru">3 859 km · 63°</span></span>
+              <span class="vc-to">R2FEL → <span class="en">KC1TEST</span><span class="ru">UA9TEST</span></span>
+              <span class="vc-spots"><span class="vc-spot is-head">DX CLUSTER</span>
+                <span class="vc-spot"><b>14 025.0</b> VK9XY <i>12:41</i></span>
+                <span class="vc-spot"><b>7 031.5</b> JA3TEST <i>12:40</i></span>
+                <span class="vc-spot"><b>21 295.0</b> PY2TEST <i>12:38</i></span></span></span></span>
+          </span>
+          <span class="vc-morse"><svg viewBox="0 0 1000 20" preserveAspectRatio="none" class="vc-wave"></svg></span>
+          <span class="vc-play"><i>▶</i><span><span class="en">Watch on YouTube</span><span class="ru">Смотреть на YouTube</span></span></span>
+        </a>
+      </div>
+      <div class="video is-short" id="video-short" data-id="rxFAgAmKsGM">
+        <a class="vc" href="https://www.youtube.com/shorts/rxFAgAmKsGM" target="_blank" rel="noopener" aria-label="Watch the video on YouTube">
+          <span class="vc-mark"><span class="vc-call">R2FEL</span><span class="vc-name">HamLog</span></span>
+          <span class="vc-title"><span class="en">See it<br>in <em>a minute</em></span><span class="ru">Посмотрите<br>за <em>минуту</em></span></span>
+          <span class="vc-demo">
+            <span class="vc-field"><span class="vc-typed en">KC1TEST</span><span class="vc-typed ru">UA9TEST</span><span class="vc-caret"></span></span>
+            <span class="vc-card"><span class="vc-photo"></span><span class="vc-txt"><span class="vc-badge">● NEW CONTACT</span>
+              <span class="vc-who" style="display:block"><span class="en">John Miller</span><span class="ru">Сергей Смирнов</span></span>
+              <span class="vc-town" style="display:block"><span class="en">Boston · United States</span><span class="ru">Новосибирск · Россия</span></span></span></span>
+            <span class="vc-geo"><span class="vc-globe"></span><span class="vc-route">
+              <span class="vc-km"><span class="en">6 390 km · 299°</span><span class="ru">3 859 km · 63°</span></span>
+              <span class="vc-to">R2FEL → <span class="en">KC1TEST</span><span class="ru">UA9TEST</span></span>
+              <span class="vc-spots"><span class="vc-spot is-head">DX CLUSTER</span>
+                <span class="vc-spot"><b>14 025.0</b> VK9XY <i>12:41</i></span>
+                <span class="vc-spot"><b>7 031.5</b> JA3TEST <i>12:40</i></span>
+                <span class="vc-spot"><b>21 295.0</b> PY2TEST <i>12:38</i></span></span></span></span>
+          </span>
+          <span class="vc-morse"><svg viewBox="0 0 1000 20" preserveAspectRatio="none" class="vc-wave"></svg></span>
+          <span class="vc-play"><i>▶</i><span><span class="en">Watch on YouTube</span><span class="ru">Смотреть на YouTube</span></span></span>
+        </a>
+      </div>
+    </div>
+    <p class="video-note en">The videos are in Russian — turn on subtitles (CC) and pick Auto-translate in the player’s settings.</p>
+  </section>
+
+  <section>
+    <h2><span class="en">Getting started</span><span class="ru">Первые шаги</span></h2>
+      <div class="note">
+        <h3><span class="en">Callsign lookup</span><span class="ru">Поиск позывных</span></h3>
+        <p><span class="en">Needs free XML API access at QRZ.RU and/or a free HamQTH account. The manual inside the program (F1) explains how to get both.</span><span class="ru">Нужен бесплатный доступ к XML API QRZ.RU и/или бесплатный аккаунт HamQTH. Как их получить — в инструкции внутри программы (F1).</span></p>
+      </div>
+  </section>
+
+  <section>
+    <h2><span class="en">Thank you, testers</span><span class="ru">Спасибо тестировщикам</span></h2>
+    <div class="thx" id="thx">
+      <div class="thx-text">
+        <div class="thx-mark"><span class="thx-call">R2FEL</span><span class="thx-name">HamLog</span></div>
+        <h3><span class="en">Thank you,<br><em>testers</em></span><span class="ru">Спасибо,<br><em>тестировщики</em></span></h3>
+        <p class="thx-sub"><span class="en">Every build installed, logs and bugs sent — the program is better for it.</span><span class="ru">Каждую сборку поставили, журналы и ошибки прислали — программа стала лучше.</span></p>
+      </div>
+      <div class="thx-net" id="thx-net" role="img" aria-label="Thank you, testers"><svg id="thx-svg" viewBox="0 0 100 48" preserveAspectRatio="none"></svg>
+        <span class="thx-hub"><i></i><i></i><i></i><b>R2FEL</b></span></div>
+      <div class="thx-morse"><svg viewBox="0 0 1000 16" preserveAspectRatio="none" id="thx-wave"></svg></div>
+    </div>
+    <p class="thanks-note"><span class="en">R2FEL HamLog grew out of other hams' real logs and honest bug reports. These people installed every unfinished build, sent their logs and debug files, and said plainly what did not work.</span><span class="ru">R2FEL HamLog вырос из настоящих журналов радиолюбителей и честных сообщений об ошибках. Эти люди ставили каждую недоделанную сборку, присылали журналы и файлы отладки и прямо говорили, что не работает.</span></p>
+  </section>
+
+  <section>
+    <h2><span class="en">Your data</span><span class="ru">Ваши данные</span></h2>
+    <div class="note ok">
+      <h3><span class="en">Nothing from your log leaves your computer</span><span class="ru">Ничего из журнала не уходит с компьютера</span></h3>
+      <p><span class="en">Callbooks and weather are asked only while you type a callsign (the sun and band data once an hour, with a request that is the same for everyone). LoTW, eQSL, HAMLOG and award.srr.ru — only when you press the button; the DX cluster only when you press Connect (the node you pick sees your callsign, which is how clusters sign you in). The nearest POTA parks are asked from pota.app only when you press 📍 with the park fields on — your coordinates go with that request. Photos of stations are downloaded from the same callbooks, and a background run asks them, one callsign at a time, about the callsigns in your log. The globe is off by default; its map comes from OpenFreeMap, which sees which areas of the world are shown — no callsigns, no log. The microphone of the Morse decoder is yours alone — the sound never leaves the program. The settings backup, if you turn it on, lands in the folder you choose; its logins are plain text, so keep it off a cloud folder or switch them off. Once a day the program checks for a new version and tells the author just the country, version, system and language — no callsign, no contacts. You can switch that off in settings. This site counts visits the same way — the day, the country, where you came from — with no cookies and nothing about you personally.</span><span class="ru">Справочники и погода спрашиваются, только пока вы вводите позывной (данные о Солнце и прохождении — раз в час, запросом, одинаковым для всех). LoTW, eQSL, HAMLOG и award.srr.ru — только по нажатию кнопки; DX-кластер — только по кнопке Connect (узел, который вы выбрали, видит ваш позывной — так кластеры вас впускают). Ближайшие парки POTA запрашиваются с pota.app только по нажатию 📍 при включённых полях парков — с запросом уходят ваши координаты. Фото станций скачиваются с тех же справочников, а фоновый обход спрашивает у них, по одному позывному за раз, позывные вашего журнала. Глобус по умолчанию выключен; карта берётся с OpenFreeMap, который видит, какие места мира показаны, — ни позывных, ни журнала. Микрофон декодера телеграфа принадлежит только вам — звук из программы не уходит. Копия настроек, если вы её включили, ложится в выбранную вами папку; логины в ней открытым текстом, поэтому не кладите её в облачную папку или выключите логины. Раз в сутки программа проверяет, не вышла ли новая версия, и сообщает автору только страну, версию, систему и язык — ни позывного, ни связей. Это выключается в настройках. Сам сайт считает посещения так же обезличенно: день, страна, откуда пришли, — без cookie и без чего-либо о вас лично.</span></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><span class="en">Author: Aleksei Aleksandrov,</span><span class="ru">Автор — Алексей Александров,</span> <b>R2FEL</b> · <a href="mailto:r2fel@mail.ru">r2fel@mail.ru</a> · <span class="en">MIT licence</span><span class="ru">лицензия MIT</span></p>
+    <p class="seventy3">73!</p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var REPO = 'r2fel/hamlog';
+    // Своя служба на Cloudflare — та же, что говорит программе о новых
+    // версиях. Ею же считаются посещения сайта: чужих счётчиков здесь нет.
+    // На localhost (проверка страницы у себя) — служба, поднятая рядом
+    // командой node stats-server/local.mjs, чтобы не мешать настоящему счёту.
+    var SERVICE = /^(localhost|127\.)/.test(location.hostname)
+      ? 'http://127.0.0.1:4195'
+      : 'https://r2fel-hamlog-updates.r2fel.workers.dev';
+    var files = {
+      mac: function (v) { return 'R2FEL-LOG-' + v + '-arm64.dmg'; },
+      win: function (v) { return 'R2FEL-LOG-Setup-' + v + '.exe'; },
+      win78: function (v) { return 'R2FEL-LOG-Setup-' + v + '-Windows7-8.exe'; }
+    };
+
+    // Links straight to the files of a release. The version written in the page
+    // is the fallback; the update service (the same one the program asks) knows
+    // the newest release, so a new version on GitHub shows up here by itself.
+    function setVersion(v) {
+      document.getElementById('ver').textContent = v;
+      var links = document.querySelectorAll('[data-file]');
+      for (var i = 0; i < links.length; i++) {
+        var name = files[links[i].getAttribute('data-file')](v);
+        links[i].href = 'https://github.com/' + REPO + '/releases/download/v' + v + '/' + name;
+        links[i].querySelector('.file').textContent = name;
+      }
+    }
+    var builtIn = '1.0.65';
+    setVersion(builtIn);
+    // Only ever forward: the service keeps GitHub's answer for an hour, and
+    // right after a release it still names the one before — taking that would
+    // point the buttons at the old files (21.10.2026, 1.0.57 shown as 1.0.56).
+    function newer(a, b) {
+      var x = a.split('.'), y = b.split('.');
+      for (var i = 0; i < 3; i++) { if (+x[i] !== +y[i]) return +x[i] > +y[i]; }
+      return false;
+    }
+    try {
+      fetch(SERVICE + '/latest')
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) { if (j && /^\d+\.\d+\.\d+$/.test(j.latest || '') && newer(j.latest, builtIn)) setVersion(j.latest); })
+        .catch(function () {});
+    } catch (e) {}
+
+    // The banner downloads the file for the visitor's own system: a Mac gets
+    // the DMG, Windows 10/11 64-bit the main installer, Windows 7/8/8.1
+    // (NT 6.x) and any 32-bit Windows the old-engine one. Anything else
+    // (Linux, a phone) just scrolls to the three buttons.
+    function ownSystem() {
+      var ua = navigator.userAgent || '';
+      if (/Windows NT/.test(ua)) {
+        if (/Windows NT 6\./.test(ua)) return 'win78';
+        return /Win64|x64|WOW64|amd64/i.test(ua) ? 'win' : 'win78';
+      }
+      if (/Macintosh|Mac OS X/.test(ua) && !/iPhone|iPad|iPod/.test(ua) && !(navigator.maxTouchPoints > 1)) return 'mac';
+      return null;
+    }
+    document.getElementById('banner').addEventListener('click', function (e) {
+      var sys = ownSystem();
+      if (!sys) return;
+      e.preventDefault();
+      mark(dlKind[sys]);
+      location.href = document.querySelector('[data-file="' + sys + '"]').href;
+    });
+
+    // Отметка о посещении: день, страна (её знает сеть), одно слово о том,
+    // откуда пришли, и язык страницы. Ни cookie, ни номера посетителя, ни
+    // адреса — считаются события, а не люди. Не получилось — и ладно.
+    function mark(kind) {
+      var ref = '';
+      try { ref = document.referrer ? new URL(document.referrer).hostname : ''; } catch (e) {}
+      if (ref === location.hostname) ref = '';
+      var url = SERVICE + '/hit?k=' + kind +
+        '&lang=' + document.documentElement.getAttribute('data-lang') +
+        (ref ? '&ref=' + encodeURIComponent(ref) : '');
+      try {
+        if (navigator.sendBeacon) navigator.sendBeacon(url);
+        else fetch(url, { mode: 'no-cors', keepalive: true }).catch(function () {});
+      } catch (e) {}
+    }
+    mark('page');
+    var dlKind = { mac: 'dl-mac', win: 'dl-win', win78: 'dl-win78' };
+    document.querySelectorAll('[data-file]').forEach(function (a) {
+      a.addEventListener('click', function () { mark(dlKind[a.getAttribute('data-file')]); });
+    });
+
+    // Language switch
+    function markLang() {
+      var l = document.documentElement.getAttribute('data-lang');
+      var b = document.querySelectorAll('[data-set-lang]');
+      for (var i = 0; i < b.length; i++) b[i].setAttribute('aria-pressed', b[i].getAttribute('data-set-lang') === l);
+    }
+    document.querySelector('.langs').addEventListener('click', function (e) {
+      var l = e.target.getAttribute('data-set-lang');
+      if (!l) return;
+      document.documentElement.setAttribute('data-lang', l);
+      document.documentElement.lang = l;
+      try { localStorage.setItem('lang', l); } catch (err) {}
+      if (l === 'ru') { location.href = '/ru/'; return; }
+      markLang();
+    });
+    markLang();
+
+    // Twinkling stars in the black corners around the globe picture.
+    (function () {
+      var box = document.getElementById('lg-fx'); if (!box) return;
+      var seed = 7; function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+      for (var i = 0, n = 0; n < 26 && i < 400; i++) {
+        var x = rnd(), y = rnd(), dx = x - .5, dy = y - .5;
+        if (Math.sqrt(dx * dx + dy * dy) < .5) continue;
+        var e = document.createElement('i'); e.className = 'st'; e.style.left = (x * 100) + '%'; e.style.top = (y * 100) + '%';
+        e.style.animationDelay = (-rnd() * 3.4).toFixed(2) + 's'; e.style.animationDuration = (2.4 + rnd() * 2.6).toFixed(2) + 's'; box.appendChild(e); n++;
+      }
+    })();
+
+    // The thank-you block: the testers' callsigns (add one here and the picture lays itself out again).
+    (function () {
+      var CALLS = ['RU2FAC', 'R2ST', 'R1BRZ', 'R2FDB'];
+      var net = document.getElementById('thx-net'), svg = document.getElementById('thx-svg'), n = CALLS.length, lines = '', sparks = '';
+      var wide = true;
+      CALLS.forEach(function (c, i) {
+        var a = (-90 + (i + .5) * 360 / n) * Math.PI / 180;
+        var x = 50 + Math.cos(a) * 41, y = 24 + Math.sin(a) * 19.5, d = (i * 0.55).toFixed(2) + 's';
+        var el = document.createElement('span');
+        el.className = 'thx-st'; el.textContent = c; el.style.left = x + '%'; el.style.top = (y / 48 * 100) + '%'; el.style.animationDelay = d;
+        net.appendChild(el);
+        lines += '<path class="thx-line" pathLength="1" d="M' + x + ' ' + y + 'L50 24" style="animation-delay:' + d + '"/>';
+        var t = (0.2 + i * 0.07).toFixed(2), t2 = (parseFloat(t) + 0.12).toFixed(2);
+        sparks += '<circle class="thx-spark" r=".9" opacity="0"><animateMotion dur="8s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;' + t + ';' + t2 + ';1" calcMode="linear" path="M' + x + ' ' + y + 'L50 24"/>' +
+          '<animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;' + t + ';' + (parseFloat(t) + .01).toFixed(2) + ';' + (parseFloat(t2) - .01).toFixed(2) + ';' + t2 + ';1"/></circle>';
+      });
+      svg.innerHTML = lines + sparks;
+      var x2 = 10, out = '', M = '--... ...--';
+      for (var r = 0; r < 8; r++) for (var i = 0; i < M.length; i++) {
+        var ch = M.charAt(i);
+        if (ch === ' ') { x2 += 40; continue; }
+        var w = ch === '-' ? 34 : 10;
+        out += '<rect x="' + x2 + '" y="4" width="' + w + '" height="8" rx="4" fill="#a97a3a"/>';
+        x2 += w + 12;
+      }
+      var wv = document.getElementById('thx-wave'); wv.setAttribute('viewBox', '0 0 ' + x2 + ' 16'); wv.innerHTML = out;
+    })();
+
+    // The video covers: a line of dots and dashes under each ("73"), drawn once; the rest animates in CSS.
+    (function () {
+      var x = 10, out = '', M = '--... ...--';
+      for (var r = 0; r < 8; r++) for (var i = 0; i < M.length; i++) {
+        var ch = M.charAt(i);
+        if (ch === ' ') { x += 40; continue; }
+        var w = ch === '-' ? 34 : 10;
+        out += '<rect x="' + x + '" y="6" width="' + w + '" height="8" rx="4" fill="#a97a3a"/>';
+        x += w + 12;
+      }
+      document.querySelectorAll('.vc-wave').forEach(function (s) { s.setAttribute('viewBox', '0 0 ' + Math.ceil(x * 1) + ' 20'); s.innerHTML = out; });
+    })();
+
+    // The drawn portrait and the globe on the covers (inline SVG, so they animate). Land scrolls under the
+    // glass of the sphere, meridians breathe, rings pulse at both ends, a spark runs along the path.
+    (function () {
+      var photo = '<svg viewBox="0 0 150 100" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="vcp" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5b7a96"/><stop offset="1" stop-color="#2f4357"/></linearGradient></defs>' +
+        '<rect width="150" height="100" fill="url(#vcp)"/><rect x="14" y="14" width="30" height="20" rx="3" fill="#3b5168" opacity=".8"/>' +
+        '<path d="M32 100c2-26 20-34 43-34s41 8 43 34z" fill="#4b78a4"/><circle cx="75" cy="44" r="19" fill="#e8b98f"/>' +
+        '<path d="M55 40c0-18 10-26 20-26s20 8 20 26" fill="none" stroke="#1d242b" stroke-width="5" stroke-linecap="round"/>' +
+        '<rect x="50" y="38" width="7" height="14" rx="3" fill="#1d242b"/><rect x="93" y="38" width="7" height="14" rx="3" fill="#1d242b"/>' +
+        '<path d="M54 52c4 12 14 16 22 16" fill="none" stroke="#1d242b" stroke-width="3" stroke-linecap="round"/>' +
+        '<circle cx="69" cy="43" r="2" fill="#2b2b2b"/><circle cx="82" cy="43" r="2" fill="#2b2b2b"/><path d="M69 54c4 3 9 3 13 0" fill="none" stroke="#8a4b3a" stroke-width="2" stroke-linecap="round"/></svg>';
+      // one 120-wide strip of land, drawn twice side by side so it can scroll without a seam
+      var land = '<path d="M6 30c6-9 20-12 28-6s16 0 22 4 4 12-4 14-10 8-20 6-10-8-18-6-14-4-8-12z"/>' +
+        '<path d="M44 58c8-5 18-3 20 5s-3 17-12 17-14-14-8-22z"/>' +
+        '<path d="M70 26c8-6 22-8 30-2s10 12 2 16-14 10-24 6-14-14-8-20z"/><path d="M92 54c6-3 12 0 12 6s-6 8-10 6-6-8-2-12z"/><path d="M104 74c6-2 12 2 10 8s-10 6-12 2 0-8 2-10z"/>';
+      var globe = '<svg viewBox="0 0 100 100"><defs>' +
+        '<radialGradient id="vcg" cx=".34" cy=".3" r=".95"><stop offset="0" stop-color="#4a6c88"/><stop offset=".6" stop-color="#1f3142"/><stop offset="1" stop-color="#0e151c"/></radialGradient>' +
+        '<radialGradient id="vcs" cx=".5" cy=".5" r=".5"><stop offset=".7" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".6"/></radialGradient>' +
+        '<radialGradient id="vch" cx=".3" cy=".25" r=".5"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>' +
+        '<radialGradient id="vcr" cx=".5" cy=".5" r=".5"><stop offset=".86" stop-color="#e8a23d" stop-opacity="0"/><stop offset=".95" stop-color="#e8a23d" stop-opacity=".35"/><stop offset="1" stop-color="#e8a23d" stop-opacity="0"/></radialGradient>' +
+        '<clipPath id="vcc"><circle cx="50" cy="50" r="44"/></clipPath></defs>' +
+        '<circle cx="50" cy="50" r="49" fill="url(#vcr)"/>' +
+        '<circle cx="50" cy="50" r="44" fill="url(#vcg)"/>' +
+        '<g clip-path="url(#vcc)"><g class="vc-g-land" fill="#7aa06a" opacity=".92"><g>' + land + '</g><g transform="translate(120 0)">' + land + '</g><g transform="translate(240 0)">' + land + '</g></g>' +
+        '<g fill="none" stroke="#a9c3d6" stroke-width=".55" opacity=".5"><ellipse class="vc-g-mer" cx="50" cy="50" rx="44" ry="44"/><ellipse class="vc-g-mer m2" cx="50" cy="50" rx="44" ry="44"/><ellipse class="vc-g-mer m3" cx="50" cy="50" rx="44" ry="44"/><path d="M6 50h88M12 30h76M12 70h76"/></g>' +
+        '<circle cx="50" cy="50" r="44" fill="url(#vcs)"/><circle cx="50" cy="50" r="44" fill="url(#vch)"/></g>' +
+        '<circle cx="50" cy="50" r="44" fill="none" stroke="#5a4a2a" stroke-width="1.2"/>' +
+        '<path id="vcpath" class="vc-g-arc" pathLength="1" d="M34 62Q50 18 70 34" fill="none" stroke="#e8a23d" stroke-width="2.4" stroke-linecap="round"/>' +
+        '<circle class="vc-g-ring" cx="34" cy="62" r="4" fill="none" stroke="#e8a23d" stroke-width="1.4"/><circle class="vc-g-ring r2" cx="34" cy="62" r="4" fill="none" stroke="#e8a23d" stroke-width="1.4"/>' +
+        '<circle class="vc-g-ring" cx="70" cy="34" r="4" fill="none" stroke="#7ea36b" stroke-width="1.4" style="animation-delay:-.5s"/>' +
+        '<circle class="vc-g-dot" cx="34" cy="62" r="3.4" fill="#e8a23d"/><circle class="vc-g-dot" cx="70" cy="34" r="3.4" fill="#7ea36b"/>' +
+        '<circle class="vc-g-spark" r="2.2" fill="#fff6dc" opacity="0"><animateMotion dur="8s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;.30;.48;1" calcMode="linear" path="M34 62Q50 18 70 34"/>' +
+        '<animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;.3;.32;.47;.49;1"/></circle></svg>';
+      document.querySelectorAll('.vc-photo').forEach(function (e) { e.innerHTML = photo; });
+      document.querySelectorAll('.vc-globe').forEach(function (e) { e.innerHTML = globe; });
+    })();
+
+  })();
+</script>
+</body>
+</html>

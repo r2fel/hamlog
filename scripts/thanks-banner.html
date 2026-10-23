@@ -1,0 +1,68 @@
+<!doctype html>
+<!-- The testers' thank-you banner for the site (both languages). The callsigns are in CALLS below —
+     add one, run `node_modules/.bin/electron scripts/thanks-banner` and the two pictures are redrawn
+     into site/img (thanks-en.jpg, thanks-ru.jpg). -->
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../site/fonts/fonts.css">
+<style>
+  :root {
+    --panel: #26241f; --panel-raised: #2f2c26; --line: #443f37;
+    --paper: #ece7d8; --text-dim: #9c9587; --ink: #14130f;
+    --amber: #e8a23d; --amber-dim: #a97a3a;
+    --font-cond: 'Roboto Condensed', sans-serif; --font-label: 'Barlow Condensed', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace; --font-text: 'IBM Plex Sans', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { background: #1c1b19; }
+  html[data-lang="en"] .ru, html[data-lang="ru"] .en { display: none !important; }
+  #thanks {
+    width: 1000px; height: 330px; position: relative; overflow: hidden; color: var(--paper);
+    background:
+      repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px),
+      radial-gradient(110% 120% at 90% 0%, #2f2b25 0%, #1f1e1b 55%, #191816 100%);
+    border: 1px solid #3a3731; border-radius: 12px;
+    display: grid; grid-template-columns: 1fr 1.05fr; align-items: center; padding: 0 44px 24px;
+  }
+  .wave { position: absolute; left: 0; right: 0; bottom: 14px; height: 26px; opacity: .5; }
+  .mark { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .call { font-family: var(--font-mono); font-weight: 700; font-size: 15px; letter-spacing: .16em; color: var(--ink);
+    background: var(--amber); border-radius: 4px; padding: 6px 11px 5px calc(11px + .16em); line-height: 1; }
+  .name { font-family: var(--font-label); font-weight: 700; font-size: 30px; line-height: 1; letter-spacing: .04em; }
+  h1 { font-family: var(--font-cond); font-weight: 700; font-size: 52px; line-height: 1.08; letter-spacing: -.005em; }
+  h1 em { font-style: normal; color: var(--amber); }
+  p { font-family: var(--font-text); font-size: 15px; line-height: 1.5; color: var(--text-dim); margin-top: 14px; max-width: 440px; }
+  .calls { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; align-content: center; }
+  .calls b {
+    font-family: var(--font-mono); font-weight: 700; font-size: 29px; letter-spacing: .12em; color: var(--ink);
+    background: var(--amber); border-radius: 7px; padding: 10px 18px 9px calc(18px + .12em); line-height: 1;
+  }
+</style>
+</head>
+<body>
+<div id="thanks">
+  <div>
+    <div class="mark"><span class="call">R2FEL</span><span class="name">HamLog</span></div>
+    <h1><span class="en">Thank you,<br><em>testers</em></span><span class="ru">Спасибо,<br><em>тестировщики</em></span></h1>
+    <p><span class="en">Every build installed, logs and bugs sent — the program is better for it.</span><span class="ru">Каждую сборку поставили, журналы и ошибки прислали — программа стала лучше.</span></p>
+  </div>
+  <div class="calls" id="calls"></div>
+  <svg class="wave" viewBox="0 0 1000 26" preserveAspectRatio="none" id="wave"></svg>
+</div>
+<script>
+  const CALLS = ['RU2FAC', 'R2ST', 'R1BRZ', 'R2FDB'];
+  document.getElementById('calls').innerHTML = CALLS.map(c => '<b>' + c + '</b>').join('');
+  // a line of dots and dashes along the bottom: "73"
+  const MORSE = '--... ...--';
+  let x = 30, out = '';
+  for (let r = 0; r < 4; r++) for (const ch of MORSE) {
+    if (ch === ' ') { x += 40; continue; }
+    const w = ch === '-' ? 34 : 10;
+    out += '<rect x="' + x + '" y="9" width="' + w + '" height="8" rx="4" fill="#a97a3a"/>';
+    x += w + 12;
+  }
+  document.getElementById('wave').innerHTML = out;
+</script>
+</body>
+</html>

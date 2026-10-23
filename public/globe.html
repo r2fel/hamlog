@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R2FEL HamLog — Globe</title>
+<!-- The globe's own window (opened from the main window's 🌍 button). It
+     draws nothing but the map: what to show comes over a BroadcastChannel from
+     the main window, which knows both stations. -->
+<link rel="stylesheet" href="/vendor/maplibre/maplibre-gl.css">
+<style>
+  :root { --amber: #e8a23d; --chassis: #1c1b19; --paper: #ece7d8; --dim: #9c9587; --line: #443f37; }
+  html, body { margin: 0; height: 100%; background: #0b0b0a; color: var(--paper); overflow: hidden;
+    font-family: -apple-system, 'Segoe UI', system-ui, sans-serif; }
+  #map { position: absolute; inset: 0; }
+  .hud { position: absolute; z-index: 2; left: 8px; top: 8px; right: 52px; display: flex; flex-wrap: wrap; align-items: center;
+    gap: 4px 10px; pointer-events: none; }
+  .hud span { background: rgba(28,27,25,0.82); border: 1px solid var(--line); border-radius: 4px; padding: 2px 8px; }
+  #route { font: 700 13px 'Barlow Condensed', 'Arial Narrow', sans-serif; letter-spacing: .08em; color: var(--amber); }
+  #km { font: 500 13px ui-monospace, Menlo, Consolas, monospace; }
+  #long { position: absolute; z-index: 2; left: 8px; bottom: 26px; background: rgba(28,27,25,0.82); border: 1px solid var(--line);
+    color: var(--dim); border-radius: 4px; font: 600 11px 'Barlow Condensed', 'Arial Narrow', sans-serif; letter-spacing: .06em;
+    padding: 3px 8px; cursor: pointer; }
+  #long.is-on { border-color: var(--amber); color: var(--amber); }
+  #long[hidden], #route[hidden], #km[hidden] { display: none; }
+  #note { position: absolute; z-index: 3; left: 0; right: 0; top: 40%; text-align: center; padding: 0 20px; font-size: 13px; color: var(--dim); }
+  #note:empty { display: none; }
+  .maplibregl-ctrl-group button { width: 32px; height: 32px; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div class="hud"><span id="route" hidden></span><span id="km" hidden></span></div>
+<button type="button" id="long" hidden></button>
+<div id="note"></div>
+<script type="module" src="/globe.js"></script>
+</body>
+</html>

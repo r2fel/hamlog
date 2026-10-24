@@ -1,0 +1,31 @@
+/* Header fix (for everyone): the name and its subtitle take only the room between the tag and the buttons, and wrap. */
+html.is-desktop-app #qso-root .qso-plate-row { grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 12px; }
+html.is-desktop-app #qso-root .qso-subtitle { white-space: normal; text-align: center; line-height: 1.35; }
+
+/* "Larger" — the window does not grow: the small things get bigger and darker, the log reads larger. */
+html #qso-root.is-big .qso-field label { font-size: 14px; font-weight: 600; letter-spacing: 0.05em; }
+html #qso-root.is-big .qso-form .qso-field label { color: var(--text); }
+html #qso-root.is-big .qso-form .qso-rst-mini label { flex-basis: 80px; width: 80px; }
+html #qso-root.is-big .qso-subtitle { font-size: 12.5px; }
+html #qso-root.is-big .qso-log-toggle { font-size: 15px; }
+html #qso-root.is-big table.qso-table thead th { font-size: 14px; font-weight: 600; letter-spacing: 0.04em; color: var(--log-ink); padding: 9px 6px; }
+html #qso-root.is-big table.qso-table thead th.is-sorted { color: var(--log-accent); }
+html #qso-root.is-big table.qso-table thead th .qso-sort-arrow { font-size: 1.7em; line-height: 0; vertical-align: -0.16em; margin-left: 5px; }
+html #qso-root.is-big table.qso-table thead th .qso-th-mine { display: none; }
+html #qso-root.is-big table.qso-table tbody td { font-size: 18px; padding: 8px 6px; }
+html #qso-root.is-big table.qso-table td.qso-call .qso-them { font-weight: 700; font-size: 20px; }
+/* My own callsign on every row says nothing: shown only when it is another one of mine (UB2FEJ…). */
+html #qso-root.is-big table.qso-table td.qso-call .qso-mine:not(.is-other):not(.is-unknown),
+html #qso-root.is-big table.qso-table td.qso-call .qso-mine:not(.is-other):not(.is-unknown) + .qso-arrow { display: none; }
+html #qso-root.is-big .qso-qsl i { width: 22px; height: 22px; border-width: 1.5px; font-size: 13px; }
+html #qso-root.is-big.is-light { --log-qsl-line: #8f8772; --log-qsl-ink: #4f4a3d; --log-head-ink: #3d392f; --text-dim: #5a5446; --log-line: #d9d3c2; }
+/* widths for the bigger letters (in the program: by column, not by place) */
+html #qso-root.is-big table.qso-table colgroup col:nth-child(1) { width: 4% !important; }
+html #qso-root.is-big table.qso-table colgroup col:nth-child(2) { width: 14% !important; }
+html #qso-root.is-big table.qso-table colgroup col:nth-child(3) { width: 9% !important; }
+html #qso-root.is-big table.qso-table colgroup col:nth-child(4) { width: 15% !important; }
+html #qso-root.is-big table.qso-table colgroup col:nth-child(5) { width: 17% !important; }
+html #qso-root.is-big table.qso-table colgroup col:nth-child(6) { width: 15% !important; }
+html #qso-root.is-big table.qso-table colgroup col:nth-child(7) { width: 8% !important; }
+html #qso-root.is-big table.qso-table colgroup col:nth-child(8) { width: 13% !important; }
+html #qso-root.is-big table.qso-table colgroup col:nth-child(9) { width: 5% !important; }

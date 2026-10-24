@@ -1,0 +1,45 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>Как исправить записанную связь</title>
+<style>
+:root{--fs:17px}body{font-family:-apple-system,"Segoe UI",Arial,sans-serif;color:#1f1c17;font-size:17px;line-height:1.5;margin:0;padding:0 8px}
+h1{font-size:30px;margin:0 0 4px}
+.sub{color:#5a5447;margin:0 0 18px}
+h2{font-size:22px;margin:22px 0 6px;color:#7a4e0e}
+ol{padding-left:26px}li{margin:8px 0}
+kbd,.ui{background:#ece7dc;border:1px solid #c9bfa8;border-radius:5px;padding:1px 7px;font-family:Consolas,monospace;font-size:.92em;font-weight:600}
+.warn{border:2px solid #a8452b;background:#fbeee9;border-radius:8px;padding:10px 14px;margin:16px 0}
+.tip{border:2px solid #9a6417;background:#fbf3e2;border-radius:8px;padding:10px 14px;margin:16px 0}
+img{width:100%;border-radius:6px;border:1px solid #d8d1c3;margin:6px 0}
+</style></head><body>
+<h1>Как исправить записанную связь</h1>
+<p class="sub">R2FEL HamLog 1.0.66 · Windows · если позывной (или имя, время) записан неверно</p>
+
+<h2>Способ 1. Исправить позывной, время, диапазон — любое поле</h2>
+<ol>
+<li>Внизу окна найдите список записанных связей (журнал). Если его не видно — нажмите кнопку <span class="ui">▸ LOG</span> слева внизу.</li>
+<li><strong>Щёлкните один раз мышью по нужной строке</strong> (в любом месте строки, только не по красному крестику справа). Подождите долю секунды — связь «поднимется» вверх, в форму. Над кнопкой появится оранжевая надпись <span class="ui">EDITING SAVED QSO</span> — значит, вы правите уже записанную связь, а не вводите новую.</li>
+<li>В верхней части формы в поле <span class="ui">CALLSIGN</span> стоит позывной корреспондента. <strong>Сотрите неверный и впишите правильный</strong> (нажмите в поле, выделите всё — <kbd>Ctrl</kbd>+<kbd>A</kbd>, и печатайте). Так же можно поменять дату, время, частоту, рапорты.</li>
+<li>Нажмите большую оранжевую кнопку <span class="ui">SAVE CHANGES</span> (или клавишу <kbd>Enter</kbd>). Готово: строка в журнале обновилась.</li>
+<li>Передумали — нажмите <span class="ui">cancel</span> под кнопкой. Всё останется как было.</li>
+</ol>
+<img src="edit.webp" alt="">
+<p style="margin-top:0;color:#5a5447">1 — надпись «правите записанную связь» · 2 — <span class="ui">cancel</span>, отменить · 3 — <span class="ui">SAVE CHANGES</span>, сохранить</p>
+
+<div class="warn"><strong>Осторожно!</strong> Красный крестик <strong>✕</strong> справа в строке журнала <strong>удаляет</strong> связь (программа спросит подтверждение — тогда нажмите «нет»). Чтобы исправить, нажимайте на саму строку, а не на крестик. Также не нажимайте кнопку <span class="ui">NOW</span> рядом со временем: она ставит <em>текущее</em> время, а не исправляет старое.</div>
+
+<h2>Способ 2. Быстро исправить только имя или город</h2>
+<ol>
+<li>Найдите связь (в журнале или в карточке найденного корреспондента).</li>
+<li><strong>Нажмите два раза подряд</strong> (двойной щелчок) на имени или на городе.</li>
+<li>Текст можно править прямо на месте. Исправили — нажмите <kbd>Enter</kbd> (или просто щёлкните в сторону). Отменить правку — <kbd>Esc</kbd>.</li>
+</ol>
+
+<div class="tip"><strong>Если вы ошиблись в позывной сразу при вводе</strong>, ещё не записав связь: в поле <span class="ui">CALLSIGN</span> нажмите серый крестик ✕ в конце поля (или <kbd>Esc</kbd>) — поле очистится — и введите заново.</div>
+
+<h2>Если что-то пошло не так</h2>
+<ul>
+<li>Строка не открылась для правки — щёлкните ещё раз, <em>один</em> раз и спокойно. Двойной щелчок по строке выделяет слово, а не открывает связь.</li>
+<li>Неверно исправили и уже сохранили — просто откройте связь снова и поправьте ещё раз.</li>
+<li>Если связь уже отправляли в LoTW, eQSL или HAMLOG и вы поменяли позывной, дату, время, диапазон или вид — программа сочтёт её новой и поставит в очередь на отправку заново. Это нормально.</li>
+</ul>
+<p class="sub" style="margin-top:20px">Вопросы — r2fel@mail.ru · 73!</p>
+</body></html>

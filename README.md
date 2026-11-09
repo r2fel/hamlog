@@ -10,7 +10,7 @@
 operator's name, country, town, grid square and RDA district, shows the distance, the weather and the
 local time where they are, and tells you at once whether you've worked them before.
 
-Free, no subscription, no cloud: the log lives on your own computer and phone. **Computer: macOS and Windows (7 and 8 included). Phone: Android and iPhone.**
+Free, no subscription, no cloud: the log lives on your own computer and phone. **Computer: macOS and Windows (7 and 8 included). Phone: Android, iPhone and iPad.**
 
 [**⬇ Download the latest version**](../../releases/latest)
 
@@ -20,7 +20,7 @@ Free, no subscription, no cloud: the log lives on your own computer and phone. *
 
 ## One log everywhere
 
-**On the computer** at home and **in your pocket** in the field — the same log. The phone app (Android and iPhone) finds the
+**On the computer** at home and **in your pocket** in the field — the same log. The phone app (Android, iPhone and iPad) finds the
 computer by itself over your home Wi-Fi: run the program, tap your computer in the phone app, press **Allow** once. No addresses, no
 keys to type. Contacts made in the field arrive on the computer, and the log goes back to the phone.
 
@@ -40,7 +40,7 @@ The globe opens in its own window beside the program, always above it, and grows
 
 ## What it does
 
-- **A phone app too** (Android and iPhone): log contacts in the field without a network, the same callbook card, a globe and an offline map; it syncs with the computer over home Wi-Fi by itself.
+- **A phone app too** (Android, iPhone and iPad): log contacts in the field without a network, the same callbook card, a globe and an offline map; it syncs with the computer over home Wi-Fi by itself.
 - **Three callbooks at once.** QRZ.RU and HamQTH are asked together; QRZ.com fills in whatever neither
   of them knew. Russian stations come back with their names in Russian.
 - **Weather and local time** at the other end, the distance along the great circle and the
@@ -83,7 +83,7 @@ The globe opens in its own window beside the program, always above it, and grows
 
 ## Video reviews by RU2FAC
 
-A fellow ham, RU2FAC, reviewed the program on his YouTube channel Imran Expert (in Russian): [the phone app for Android and iPhone](https://youtu.be/c1kdcrW04s8) and [the program for Mac and Windows](https://youtu.be/jHyAE3GIDko).
+A fellow ham, RU2FAC, reviewed the program on his YouTube channel Imran Expert (in Russian): [the phone app for Android, iPhone and iPad](https://youtu.be/c1kdcrW04s8) and [the program for Mac and Windows](https://youtu.be/jHyAE3GIDko).
 
 ## Installing
 
@@ -96,7 +96,7 @@ Everything ready to run is on the [releases page](../../releases/latest):
 | `R2FEL-LOG-Setup-<version>.exe` | Windows 10 and 11 (64-bit) |
 | `R2FEL-LOG-Setup-<version>-Windows7-8.exe` | Windows 7, 8, 8.1 and 32-bit |
 | `R2FEL-HamLog-mobile-<version>.apk` | Android 7 and newer |
-| `R2FEL-HamLog-mobile-<version>.ipa` | iPhone, iOS 15 and newer (installed with Sideloadly) |
+| `R2FEL-HamLog-mobile-<version>.ipa` | iPhone and iPad, iOS 15 and newer (installed with Sideloadly) |
 
 The program isn't signed with a paid certificate, so your system will warn you that the developer is
 unknown. On a Mac: **System Settings → Privacy & Security**, scroll down to the message about R2FEL-LOG and press **Open Anyway** (on newer macOS right-click → Open no longer helps). On Windows: **More info** → **Run anyway**. Once only.
@@ -130,7 +130,7 @@ Nothing from your log. Ever.
   api.pota.app to get the nearest parks. Nothing else, and never in the background.
 - **DX cluster** — only when you press CONNECT: the node you pick sees your callsign, which is how
   clusters sign you in.
-- **Phone app** (iPhone and Android, installed by hand) — talks to your computer over your home Wi-Fi only (the computer announces itself by name on the home network, and you press Allow); nothing goes through the internet.
+- **Phone app** (iPhone, iPad and Android, installed by hand) — talks to your computer over your home Wi-Fi only (the computer announces itself by name on the home network, and you press Allow); nothing goes through the internet.
 - **Promo at start** — on each start the program asks r2fel.com for a small file saying whether a promo is switched on (nothing about you). If it is, a short video from the address the author gave is shown; none by default.
 - **Microphone** (CW decoder) — switched on only by you; the sound is processed inside the program and
   goes nowhere.

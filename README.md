@@ -56,9 +56,10 @@ The globe opens in its own window beside the program, always above it, and grows
 - **A Morse (CW) decoder**, in a window of its own with its own button: listens to the microphone or a cable from the receiver and writes the
   letters, finds the speed by itself, tells two stations apart, explains the abbreviations under the
   words (PSE, QTH, 73).
-- **Send and check in one place** (the ✈ button): everything not sent yet goes to every service at once, then the confirmations are checked; the HAMLOG and QRZ.com files are saved into a folder you choose once. A **“What works from here”** page tries every outside service from your own computer — with a VPN and without — and says what to expect.
+- **Digital modes and your transceiver**: CAT over USB (Yaesu, Kenwood, Icom including the Xiegu G90S) — frequency, mode, PTT and the S-meter right in the program; JTDX and WSJT-X contacts arrive by themselves; FLdigi shows what it hears, and a contact saved in FLdigi can be taken into the journal by itself.
+- **Send and check in one place** (the ✈ button): everything not sent yet goes to every service at once, then the confirmations are checked; the QRZ.com file is saved into a folder you choose once, and HAMLOG is sent straight to the site once you have connected it with a code. A **“What works from here”** page tries every outside service from your own computer — with a VPN and without — and says what to expect.
 - **QSL confirmations** in one place: **LoTW** (through TQSL), **eQSL** (upload, and the cards you
-  receive), **HAMLOG** (by file), **QRZ.com** (a file to upload), **award.srr.ru** and **RDA** awards, and **your own QSL card by
+  receive), **HAMLOG** (sent to the site by the program itself, with the HQSL confirmations read from the file you download there), **QRZ.com** (a file to upload), **award.srr.ru** and **RDA** awards, and **your own QSL card by
   e-mail** — your own picture with the fields placed on it, or a card the program draws from your
   details.
 - **A log that fits you**: choose the columns, sort by any of them, three colour themes, and a full-screen
@@ -124,8 +125,8 @@ Nothing from your log. Ever.
   you are typing a callsign. Your logins stay on your computer — and in the settings backup, if you switch that on (a copy in a folder you choose; the logins are in it as plain text, so switch them off there if the folder goes to a cloud).
 - **The sun and the bands** (K, A, SFI, band conditions) are fetched once an hour from NOAA and N0NBH (hamqsl.com); the
   request is the same for everyone — no callsign, no locator. Off in the settings.
-- **LoTW, eQSL, HAMLOG, award.srr.ru, QSL by e-mail** — only when you press the button, and only what
-  you send.
+- **LoTW, eQSL, HAMLOG, award.srr.ru, Club Log, HRDLog, QSL by e-mail** — when you press the button, or by itself
+  if you switch that on for a service (it is off by default), and only what you send.
 - **POTA parks near you** — only when you press 📍 with the park fields switched on: your coordinates go to
   api.pota.app to get the nearest parks. Nothing else, and never in the background.
 - **DX cluster** — only when you press CONNECT: the node you pick sees your callsign, which is how
@@ -210,9 +211,10 @@ Author: Aleksei Aleksandrov, **R2FEL**. Questions and ideas: [Discussions](../..
   и у каждого отметка `NEW` или `WORKED ×N` по вашему журналу.
 - **Декодер телеграфа (CW)** в отдельном окне и со своей кнопкой: слушает микрофон или кабель от приёмника и пишет буквами, скорость
   определяет сам, различает две станции, под словами объясняет сокращения (PSE, QTH, 73).
+- **Цифра и трансивер**: CAT по USB (Yaesu, Kenwood, Icom, включая Xiegu G90S) — частота, вид, PTT и S-метр прямо в программе; связи из JTDX и WSJT-X приходят сами; FLdigi показывает, что слышит, и связь, сохранённую в FLdigi, можно забирать в журнал автоматически.
 - **Отправка и проверка в одном месте** (кнопка ✈): всё неотправленное уходит во все службы сразу, потом проверяются подтверждения; файлы для HAMLOG и QRZ.com сохраняются в папку, которую выбираете один раз. Страница **«Что работает отсюда»** пробует все внешние службы с вашего компьютера — с VPN и без него — и говорит, чего ждать.
 - **Подтверждения QSL** в одном месте: **LoTW** (через TQSL), **eQSL** (отправка и приём картинок),
-  **HAMLOG** (файлом), **QRZ.com** (файлом для загрузки), дипломы **award.srr.ru** и **RDA**, и **своя QSL-карточка по e-mail** — своя
+  **HAMLOG** (программа отправляет на сайт сама после подключения по коду, подтверждения HQSL читаются из файла, скачанного там же), **QRZ.com** (файлом для загрузки), дипломы **award.srr.ru** и **RDA**, и **своя QSL-карточка по e-mail** — своя
   картинка с разметкой или карточка, которую программа рисует сама.
 - **Журнал под себя**: колонки выбираются, сортировка по любой, три цветовые темы, а окно на весь экран
   ставит журнал высокой колонкой справа. Десятки тысяч связей без задержек.
@@ -278,7 +280,8 @@ Author: Aleksei Aleksandrov, **R2FEL**. Questions and ideas: [Discussions](../..
   когда вы вводите позывной. Логины хранятся на вашем компьютере — и в копии настроек, если вы её включили (копия лежит в выбранной вами папке; логины в ней открытым текстом, поэтому если папка уходит в облако — выключите их там).
 - **Солнце и прохождение** (K, A, SFI, состояние диапазонов) запрашиваются раз в час у NOAA и N0NBH (hamqsl.com);
   запрос одинаков для всех — без позывного и локатора. Выключается в настройках.
-- **LoTW, eQSL, HAMLOG, award.srr.ru, QSL по e-mail** — только по нажатию кнопки и только то, что вы
+- **LoTW, eQSL, HAMLOG, award.srr.ru, Club Log, HRDLog, QSL по e-mail** — по нажатию кнопки или сами, если
+  включить это для службы (по умолчанию выключено), и только то, что вы
   отправляете.
 - **Парки POTA рядом** — только по нажатию 📍 при включённых полях парков: ваши координаты уходят на
   api.pota.app, чтобы получить ближайшие парки. Больше ничего и никогда в фоне.
